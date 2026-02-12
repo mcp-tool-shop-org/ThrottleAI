@@ -161,12 +161,62 @@ const d2 = gov.acquire({ actorId: "a", action: "chat", idempotencyKey: "req-123"
 // d1.leaseId === d2.leaseId (same lease, only 1 slot consumed)
 ```
 
+## Adapters
+
+Tree-shakeable wrappers — import only what you use. No runtime deps beyond ThrottleAI.
+
+### fetch
+
+```ts
+import { wrapFetch } from "throttleai/adapters/fetch";
+const throttledFetch = wrapFetch(fetch, { governor: gov });
+const r = await throttledFetch("https://api.example.com/v1/chat");
+if (r.ok) console.log(r.response.status);
+```
+
+### OpenAI-compatible
+
+```ts
+import { wrapChatCompletions } from "throttleai/adapters/openai";
+const chat = wrapChatCompletions(openai.chat.completions.create, { governor: gov });
+const r = await chat({ model: "gpt-4", messages });
+if (r.ok) console.log(r.result.choices[0].message.content);
+```
+
+### Tool call
+
+```ts
+import { wrapTool } from "throttleai/adapters/tools";
+const embed = wrapTool(myEmbedFn, { governor: gov, toolId: "embed" });
+const r = await embed("hello");
+if (r.ok) console.log(r.result);
+```
+
+### Express
+
+```ts
+import { throttleMiddleware } from "throttleai/adapters/express";
+app.use("/ai", throttleMiddleware({ governor: gov }));
+// Returns 429 + Retry-After header when denied
+```
+
+### Hono
+
+```ts
+import { throttle } from "throttleai/adapters/hono";
+app.use("/ai/*", throttle({ governor: gov }));
+// Returns 429 JSON when denied, stores leaseId on context
+```
+
+All adapters return a consistent shape: `{ ok: true, result, latencyMs }` on grant, `{ ok: false, decision }` on deny.
+
 ## Examples
 
 See [`examples/`](examples/) for runnable demos:
 
 - **[node-basic.ts](examples/node-basic.ts)** — 5 concurrent calls with maxInFlight=2
 - **[express-middleware.ts](examples/express-middleware.ts)** — HTTP 429 throttling middleware
+- **[cookbook-adapters.ts](examples/cookbook-adapters.ts)** — All five adapters in action
 
 ```bash
 npx tsx examples/node-basic.ts
