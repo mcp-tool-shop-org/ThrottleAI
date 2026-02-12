@@ -67,7 +67,7 @@ describe("LeaseStore", () => {
   });
 
   it("sweep removes expired leases", () => {
-    let time = 1000;
+    const time = 1000;
     setNow(() => time);
 
     const active = makeLease({ expiresAt: 2000 });

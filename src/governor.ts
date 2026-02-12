@@ -112,6 +112,7 @@ export class Governor {
   // Release
   // ---------------------------------------------------------------------------
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   release(leaseId: string, _report?: ReleaseReport): void {
     const lease = this._store.remove(leaseId);
     if (lease && this._concurrency) {
@@ -157,7 +158,7 @@ export class Governor {
 
   private _onExpired(leases: Lease[]): void {
     if (this._concurrency) {
-      for (const _lease of leases) {
+      for (let i = 0; i < leases.length; i++) {
         this._concurrency.release();
       }
     }
