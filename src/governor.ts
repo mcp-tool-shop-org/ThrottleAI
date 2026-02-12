@@ -8,6 +8,7 @@ import type {
 import { LeaseStore } from "./leaseStore.js";
 import { ConcurrencyPool } from "./pools/concurrency.js";
 import { RatePool } from "./pools/rate.js";
+import { TokenRatePool } from "./pools/tokenRate.js";
 import { FairnessTracker } from "./fairness.js";
 import { now } from "./utils/time.js";
 import { newLeaseId } from "./utils/id.js";
@@ -20,6 +21,7 @@ export class Governor {
   private readonly _store: LeaseStore;
   private readonly _concurrency: ConcurrencyPool | null;
   private readonly _rate: RatePool | null;
+  private readonly _tokenRate: TokenRatePool | null;
   private readonly _fairness: FairnessTracker | null;
   private readonly _ttlMs: number;
 
@@ -32,8 +34,25 @@ export class Governor {
       ? new ConcurrencyPool(config.concurrency)
       : null;
 
-    // Rate pool
-    this._rate = config.rate ? new RatePool(config.rate) : null;
+    // Rate pool (request-rate)
+    if (config.rate?.requestsPerMinute) {
+      this._rate = new RatePool({
+        requestsPerMinute: config.rate.requestsPerMinute,
+        windowMs: config.rate.windowMs,
+      });
+    } else {
+      this._rate = null;
+    }
+
+    // Token-rate pool
+    if (config.rate?.tokensPerMinute) {
+      this._tokenRate = new TokenRatePool({
+        tokensPerMinute: config.rate.tokensPerMinute,
+        windowMs: config.rate.windowMs,
+      });
+    } else {
+      this._tokenRate = null;
+    }
 
     // Fairness tracker (only meaningful with concurrency)
     if (config.fairness && this._concurrency) {
@@ -115,14 +134,11 @@ export class Governor {
       }
     }
 
-    // Rate check
+    // Request-rate check
     if (this._rate) {
       const rateResult = this._rate.tryAcquire();
       if (!rateResult.ok) {
-        // Roll back concurrency weight if we acquired some
-        if (this._concurrency) {
-          this._concurrency.release(weight);
-        }
+        this._rollbackConcurrency(weight);
         return {
           granted: false,
           reason: "rate",
@@ -130,12 +146,38 @@ export class Governor {
           recommendation: "reduce request frequency or wait",
         };
       }
+    }
+
+    // Token-rate check
+    if (this._tokenRate) {
+      const estimatedTokens = this._estimateTokens(request);
+      const tokenResult = this._tokenRate.tryAcquire(estimatedTokens);
+      if (!tokenResult.ok) {
+        this._rollbackConcurrency(weight);
+        return {
+          granted: false,
+          reason: "rate",
+          retryAfterMs: tokenResult.retryAfterMs ?? 1_000,
+          recommendation: "reduce token usage or wait",
+        };
+      }
+    }
+
+    // All checks passed — commit rate records
+    if (this._rate) {
       this._rate.record();
     }
 
     // Issue lease
+    const leaseId = newLeaseId();
+    const estimatedTokens = this._estimateTokens(request);
+
+    if (this._tokenRate) {
+      this._tokenRate.record(estimatedTokens, leaseId);
+    }
+
     const lease: Lease = {
-      leaseId: newLeaseId(),
+      leaseId,
       actorId: request.actorId,
       action: request.action,
       priority,
@@ -164,8 +206,7 @@ export class Governor {
   // Release
   // ---------------------------------------------------------------------------
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  release(leaseId: string, _report?: ReleaseReport): void {
+  release(leaseId: string, report?: ReleaseReport): void {
     const lease = this._store.remove(leaseId);
     if (!lease) return;
 
@@ -174,6 +215,14 @@ export class Governor {
     }
     if (this._fairness) {
       this._fairness.recordRelease(lease.actorId, lease.weight);
+    }
+    // Update token-rate with actual usage if available
+    if (this._tokenRate && report?.usage) {
+      const actualTokens =
+        (report.usage.promptTokens ?? 0) + (report.usage.outputTokens ?? 0);
+      if (actualTokens > 0) {
+        this._tokenRate.updateActual(leaseId, actualTokens);
+      }
     }
   }
 
@@ -203,6 +252,16 @@ export class Governor {
     return this._rate?.limit ?? Infinity;
   }
 
+  /** Current tokens consumed in the active window. */
+  get tokenRateCount(): number {
+    return this._tokenRate?.currentTokens ?? 0;
+  }
+
+  /** Token-rate limit. */
+  get tokenRateLimit(): number {
+    return this._tokenRate?.limit ?? Infinity;
+  }
+
   // ---------------------------------------------------------------------------
   // Cleanup
   // ---------------------------------------------------------------------------
@@ -214,6 +273,19 @@ export class Governor {
   // ---------------------------------------------------------------------------
   // Internal
   // ---------------------------------------------------------------------------
+
+  private _rollbackConcurrency(weight: number): void {
+    if (this._concurrency) {
+      this._concurrency.release(weight);
+    }
+  }
+
+  /** Estimate total tokens from the request's estimate. */
+  private _estimateTokens(request: AcquireRequest): number {
+    const est = request.estimate;
+    if (!est) return 0;
+    return (est.promptTokens ?? 0) + (est.maxOutputTokens ?? 0);
+  }
 
   private _onExpired(leases: Lease[]): void {
     for (const lease of leases) {

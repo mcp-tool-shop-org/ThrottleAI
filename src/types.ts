@@ -11,7 +11,9 @@ export interface ConcurrencyConfig {
 
 export interface RateConfig {
   /** Maximum requests allowed within the rolling window. */
-  requestsPerMinute: number;
+  requestsPerMinute?: number;
+  /** Maximum tokens allowed within the rolling window. */
+  tokensPerMinute?: number;
   /** Rolling window size in ms (default 60 000). */
   windowMs?: number;
 }
@@ -81,6 +83,8 @@ export interface ReleaseReport {
   outcome: LeaseOutcome;
   usage?: { promptTokens?: number; outputTokens?: number };
   actualCostCents?: number;
+  /** Actual latency of the operation in ms. Used by adaptive tuning. */
+  latencyMs?: number;
 }
 
 // ---------------------------------------------------------------------------
