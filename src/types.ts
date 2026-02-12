@@ -137,10 +137,18 @@ export interface GovernorSnapshot {
   /** Number of active leases. */
   activeLeases: number;
   concurrency: {
-    active: number;
+    /** Current in-flight weight (sum of all active lease weights). */
+    inFlightWeight: number;
+    /** Current in-flight count (number of active leases). */
+    inFlightCount: number;
+    /** Available weight capacity. */
     available: number;
+    /** Configured max in-flight weight. */
     max: number;
+    /** Effective max (may be lower when adaptive is active). */
     effectiveMax: number;
+    /** @deprecated Use `inFlightWeight` instead. */
+    active: number;
   } | null;
   requestRate: {
     current: number;
@@ -152,6 +160,12 @@ export interface GovernorSnapshot {
   } | null;
   fairness: boolean;
   adaptive: boolean;
+  /** Most recent deny event, if any. */
+  lastDeny: {
+    reason: DenyReason;
+    timestamp: number;
+    actorId?: string;
+  } | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -168,6 +182,8 @@ export interface GovernorEvent {
   action?: string;
   reason?: DenyReason;
   retryAfterMs?: number;
+  /** Recommendation string (only for "deny" events). */
+  recommendation?: string;
   weight?: number;
   outcome?: LeaseOutcome;
   /** Warning message (only for "warn" events). */

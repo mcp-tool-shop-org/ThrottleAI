@@ -35,6 +35,8 @@ export class Governor {
   private readonly _releasedIds: Set<string> = new Set();
   /** Max size of _releasedIds before pruning (prevent unbounded growth). */
   private static readonly _RELEASED_CACHE_SIZE = 10_000;
+  /** Track the most recent deny for snapshot(). */
+  private _lastDeny: { reason: import("./types.js").DenyReason; timestamp: number; actorId?: string } | null = null;
 
   constructor(config: GovernorConfig) {
     this._store = new LeaseStore();
@@ -138,6 +140,8 @@ export class Governor {
         if (this._adaptive) {
           this._adaptive.recordDenial();
         }
+        const recommendation = `All ${this._concurrency.effectiveMax} slots in use (${this._concurrency.active} active). Retry in ${result.retryAfterMs ?? 500}ms or reduce concurrent calls.`;
+        this._recordDeny("concurrency", request.actorId);
         this._emit({
           type: "deny",
           timestamp: now(),
@@ -145,13 +149,14 @@ export class Governor {
           action: request.action,
           reason: "concurrency",
           retryAfterMs: result.retryAfterMs ?? 500,
+          recommendation,
           weight,
         });
         return {
           granted: false,
           reason: "concurrency",
           retryAfterMs: result.retryAfterMs ?? 500,
-          recommendation: `All ${this._concurrency.effectiveMax} slots in use (${this._concurrency.active} active). Retry in ${result.retryAfterMs ?? 500}ms or reduce concurrent calls.`,
+          recommendation,
           limitsHint: {
             inFlight: this._concurrency.active,
             maxInFlight: this._concurrency.effectiveMax,
@@ -175,6 +180,8 @@ export class Governor {
             this._adaptive.recordDenial();
           }
           const retryMs = clampRetry(earliestExpiryMs ?? 500);
+          const recommendation = `Actor "${request.actorId}" exceeds fair share. Other actors are waiting — retry in ${retryMs}ms.`;
+          this._recordDeny("policy", request.actorId);
           this._emit({
             type: "deny",
             timestamp: now(),
@@ -182,13 +189,14 @@ export class Governor {
             action: request.action,
             reason: "policy",
             retryAfterMs: retryMs,
+            recommendation,
             weight,
           });
           return {
             granted: false,
             reason: "policy",
             retryAfterMs: retryMs,
-            recommendation: `Actor "${request.actorId}" exceeds fair share. Other actors are waiting — retry in ${retryMs}ms.`,
+            recommendation,
             limitsHint: {
               inFlight: this._concurrency!.active,
               maxInFlight: this._concurrency!.effectiveMax,
@@ -204,6 +212,8 @@ export class Governor {
       if (!rateResult.ok) {
         this._rollbackConcurrency(weight);
         const retryMs = rateResult.retryAfterMs ?? 1_000;
+        const recommendation = `Rate limit hit (${this._rate!.currentCount}/${this._rate!.limit} req/window). Retry in ${retryMs}ms.`;
+        this._recordDeny("rate", request.actorId);
         this._emit({
           type: "deny",
           timestamp: now(),
@@ -211,13 +221,14 @@ export class Governor {
           action: request.action,
           reason: "rate",
           retryAfterMs: retryMs,
+          recommendation,
           weight,
         });
         return {
           granted: false,
           reason: "rate",
           retryAfterMs: retryMs,
-          recommendation: `Rate limit hit (${this._rate!.currentCount}/${this._rate!.limit} req/window). Retry in ${retryMs}ms.`,
+          recommendation,
           limitsHint: {
             rateUsed: this._rate!.currentCount,
             rateLimit: this._rate!.limit,
@@ -233,6 +244,8 @@ export class Governor {
       if (!tokenResult.ok) {
         this._rollbackConcurrency(weight);
         const retryMs = tokenResult.retryAfterMs ?? 1_000;
+        const recommendation = `Token rate limit hit (${this._tokenRate!.currentTokens}/${this._tokenRate!.limit} tokens/window). Retry in ${retryMs}ms.`;
+        this._recordDeny("rate", request.actorId);
         this._emit({
           type: "deny",
           timestamp: now(),
@@ -240,13 +253,14 @@ export class Governor {
           action: request.action,
           reason: "rate",
           retryAfterMs: retryMs,
+          recommendation,
           weight,
         });
         return {
           granted: false,
           reason: "rate",
           retryAfterMs: retryMs,
-          recommendation: `Token rate limit hit (${this._tokenRate!.currentTokens}/${this._tokenRate!.limit} tokens/window). Retry in ${retryMs}ms.`,
+          recommendation,
           limitsHint: {
             rateUsed: this._tokenRate!.currentTokens,
             rateLimit: this._tokenRate!.limit,
@@ -443,7 +457,9 @@ export class Governor {
       activeLeases: this._store.size,
       concurrency: this._concurrency
         ? {
-            active: this._concurrency.active,
+            inFlightWeight: this._concurrency.active,
+            inFlightCount: this._store.size,
+            active: this._concurrency.active, // deprecated alias
             available: this._concurrency.available,
             max: this._concurrency.max,
             effectiveMax: this._concurrency.effectiveMax,
@@ -463,6 +479,7 @@ export class Governor {
         : null,
       fairness: this._fairness !== null,
       adaptive: this._adaptive !== null,
+      lastDeny: this._lastDeny,
     };
   }
 
@@ -508,6 +525,10 @@ export class Governor {
         weight: lease.weight,
       });
     }
+  }
+
+  private _recordDeny(reason: import("./types.js").DenyReason, actorId?: string): void {
+    this._lastDeny = { reason, timestamp: now(), actorId };
   }
 
   private _emit(event: GovernorEvent): void {

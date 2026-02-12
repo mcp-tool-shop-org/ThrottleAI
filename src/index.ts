@@ -16,6 +16,9 @@ export { waitForRetry, retryAcquire } from "./retry.js";
 // Presets
 export { presets } from "./presets.js";
 
+// Formatting utilities
+export { formatEvent, formatSnapshot } from "./format.js";
+
 // Testing utilities
 export { createTestClock } from "./utils/time.js";
 export type { Clock } from "./utils/time.js";
