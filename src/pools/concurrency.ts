@@ -12,18 +12,25 @@ export interface PoolResult {
   reason?: string;
 }
 
+/**
+ * Weight-aware concurrency pool.
+ *
+ * `maxInFlight` is the total weight capacity.
+ * Each acquire specifies a weight (default 1), so legacy callers with
+ * weight=1 behave exactly like the original count-based pool.
+ */
 export class ConcurrencyPool {
-  private readonly _max: number;
-  private readonly _reserve: number;
-  private _active = 0;
+  private readonly _maxWeight: number;
+  private readonly _reserveWeight: number;
+  private _inFlightWeight = 0;
 
   constructor(config: ConcurrencyPoolConfig) {
-    this._max = config.maxInFlight;
-    this._reserve = config.interactiveReserve ?? 0;
+    this._maxWeight = config.maxInFlight;
+    this._reserveWeight = config.interactiveReserve ?? 0;
 
-    if (this._reserve >= this._max) {
+    if (this._reserveWeight >= this._maxWeight) {
       throw new Error(
-        `interactiveReserve (${this._reserve}) must be less than maxInFlight (${this._max})`,
+        `interactiveReserve (${this._reserveWeight}) must be less than maxInFlight (${this._maxWeight})`,
       );
     }
   }
@@ -31,12 +38,16 @@ export class ConcurrencyPool {
   /**
    * @param priority Caller priority level.
    * @param earliestExpiryMs Optional: ms until the earliest active lease expires.
-   *   When provided, used to compute a precise retryAfterMs instead of a heuristic.
+   * @param weight Concurrency weight for this call (default 1).
    */
-  tryAcquire(priority: Priority, earliestExpiryMs?: number): PoolResult {
-    const available = this._max - this._active;
+  tryAcquire(
+    priority: Priority,
+    earliestExpiryMs?: number,
+    weight = 1,
+  ): PoolResult {
+    const availableWeight = this._maxWeight - this._inFlightWeight;
 
-    if (available <= 0) {
+    if (availableWeight < weight) {
       return {
         ok: false,
         retryAfterMs: this._computeRetry(earliestExpiryMs),
@@ -45,7 +56,10 @@ export class ConcurrencyPool {
     }
 
     // Background callers cannot consume the reserve
-    if (priority === "background" && available <= this._reserve) {
+    if (
+      priority === "background" &&
+      availableWeight - weight < this._reserveWeight
+    ) {
       return {
         ok: false,
         retryAfterMs: this._computeRetry(earliestExpiryMs),
@@ -53,26 +67,28 @@ export class ConcurrencyPool {
       };
     }
 
-    this._active++;
+    this._inFlightWeight += weight;
     return { ok: true };
   }
 
-  release(): void {
-    if (this._active > 0) {
-      this._active--;
-    }
+  /** Release weight back to the pool. */
+  release(weight = 1): void {
+    this._inFlightWeight = Math.max(0, this._inFlightWeight - weight);
   }
 
+  /** Current in-flight weight. */
   get active(): number {
-    return this._active;
+    return this._inFlightWeight;
   }
 
+  /** Available weight capacity. */
   get available(): number {
-    return this._max - this._active;
+    return this._maxWeight - this._inFlightWeight;
   }
 
+  /** Maximum weight capacity. */
   get max(): number {
-    return this._max;
+    return this._maxWeight;
   }
 
   /**
@@ -85,7 +101,7 @@ export class ConcurrencyPool {
       return clampRetry(earliestExpiryMs);
     }
     // Fallback: pressure-based heuristic
-    const pressure = this._active / this._max;
+    const pressure = this._inFlightWeight / this._maxWeight;
     return clampRetry(Math.round(250 + pressure * 750));
   }
 }

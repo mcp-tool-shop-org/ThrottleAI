@@ -38,6 +38,8 @@ export type LeaseOutcome = "success" | "error" | "timeout" | "cancelled";
 export interface TokenEstimate {
   promptTokens?: number;
   maxOutputTokens?: number;
+  /** Concurrency weight for this call (default 1). Heavy calls consume more capacity. */
+  weight?: number;
 }
 
 export interface AcquireRequest {
@@ -85,4 +87,6 @@ export interface Lease {
   estimate?: TokenEstimate;
   idempotencyKey?: string;
   createdAt: number;
+  /** Concurrency weight consumed by this lease (default 1). */
+  weight: number;
 }

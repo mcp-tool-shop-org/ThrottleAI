@@ -43,6 +43,7 @@ export class Governor {
 
   acquire(request: AcquireRequest): AcquireDecision {
     const priority = request.priority ?? "interactive";
+    const weight = request.estimate?.weight ?? 1;
 
     // Idempotency check
     if (request.idempotencyKey) {
@@ -63,7 +64,11 @@ export class Governor {
       const earliestExpiryMs =
         earliestExpiry !== undefined ? earliestExpiry - now() : undefined;
 
-      const result = this._concurrency.tryAcquire(priority, earliestExpiryMs);
+      const result = this._concurrency.tryAcquire(
+        priority,
+        earliestExpiryMs,
+        weight,
+      );
       if (!result.ok) {
         return {
           granted: false,
@@ -78,9 +83,9 @@ export class Governor {
     if (this._rate) {
       const rateResult = this._rate.tryAcquire();
       if (!rateResult.ok) {
-        // Roll back concurrency token if we acquired one
+        // Roll back concurrency weight if we acquired some
         if (this._concurrency) {
-          this._concurrency.release();
+          this._concurrency.release(weight);
         }
         return {
           granted: false,
@@ -102,6 +107,7 @@ export class Governor {
       estimate: request.estimate,
       idempotencyKey: request.idempotencyKey,
       createdAt: now(),
+      weight,
     };
 
     this._store.add(lease);
@@ -121,7 +127,7 @@ export class Governor {
   release(leaseId: string, _report?: ReleaseReport): void {
     const lease = this._store.remove(leaseId);
     if (lease && this._concurrency) {
-      this._concurrency.release();
+      this._concurrency.release(lease.weight);
     }
   }
 
@@ -133,10 +139,12 @@ export class Governor {
     return this._store.size;
   }
 
+  /** Current in-flight weight (or count when all weights are 1). */
   get concurrencyActive(): number {
     return this._concurrency?.active ?? 0;
   }
 
+  /** Available weight capacity. */
   get concurrencyAvailable(): number {
     return this._concurrency?.available ?? Infinity;
   }
@@ -163,8 +171,8 @@ export class Governor {
 
   private _onExpired(leases: Lease[]): void {
     if (this._concurrency) {
-      for (let i = 0; i < leases.length; i++) {
-        this._concurrency.release();
+      for (const lease of leases) {
+        this._concurrency.release(lease.weight);
       }
     }
   }

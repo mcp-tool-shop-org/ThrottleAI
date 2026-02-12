@@ -11,6 +11,7 @@ function makeLease(overrides: Partial<Lease> = {}): Lease {
     priority: "interactive",
     expiresAt: Date.now() + 60_000,
     createdAt: Date.now(),
+    weight: 1,
     ...overrides,
   };
 }
