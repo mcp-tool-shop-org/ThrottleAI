@@ -51,6 +51,15 @@ export interface GovernorConfig {
   reaperIntervalMs?: number;
   /** Optional event handler. Receives structured events for acquire/deny/release/expire. No logging by default. */
   onEvent?: GovernorEventHandler;
+  /**
+   * Enable strict mode for development.
+   *
+   * When `true`:
+   * - Double release throws an error
+   * - Releasing an unknown lease ID throws an error
+   * - Long-held leases (>80% of TTL) emit a "warn" event via onEvent
+   */
+  strict?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -135,7 +144,7 @@ export interface GovernorSnapshot {
 // Events
 // ---------------------------------------------------------------------------
 
-export type GovernorEventType = "acquire" | "deny" | "release" | "expire";
+export type GovernorEventType = "acquire" | "deny" | "release" | "expire" | "warn";
 
 export interface GovernorEvent {
   type: GovernorEventType;
@@ -147,6 +156,8 @@ export interface GovernorEvent {
   retryAfterMs?: number;
   weight?: number;
   outcome?: LeaseOutcome;
+  /** Warning message (only for "warn" events). */
+  message?: string;
 }
 
 export type GovernorEventHandler = (event: GovernorEvent) => void;

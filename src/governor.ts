@@ -30,11 +30,17 @@ export class Governor {
   private readonly _adaptive: AdaptiveController | null;
   private readonly _ttlMs: number;
   private readonly _onEvent: GovernorEventHandler | null;
+  private readonly _strict: boolean;
+  /** Track recently-released lease IDs in strict mode (to detect double release). */
+  private readonly _releasedIds: Set<string> = new Set();
+  /** Max size of _releasedIds before pruning (prevent unbounded growth). */
+  private static readonly _RELEASED_CACHE_SIZE = 10_000;
 
   constructor(config: GovernorConfig) {
     this._store = new LeaseStore();
     this._ttlMs = config.leaseTtlMs ?? DEFAULT_TTL_MS;
     this._onEvent = config.onEvent ?? null;
+    this._strict = config.strict ?? false;
 
     // Concurrency pool
     this._concurrency = config.concurrency
@@ -291,8 +297,37 @@ export class Governor {
   // ---------------------------------------------------------------------------
 
   release(leaseId: string, report?: ReleaseReport): void {
+    // Strict mode: detect double release and unknown lease IDs
+    if (this._strict) {
+      if (this._releasedIds.has(leaseId)) {
+        throw new Error(
+          `[ThrottleAI strict] Double release detected for lease "${leaseId}". ` +
+          `This lease was already released.`,
+        );
+      }
+    }
+
     const lease = this._store.remove(leaseId);
-    if (!lease) return;
+
+    if (!lease) {
+      if (this._strict) {
+        throw new Error(
+          `[ThrottleAI strict] Unknown lease ID "${leaseId}". ` +
+          `The lease may have expired or was never issued.`,
+        );
+      }
+      return;
+    }
+
+    // Track this release in strict mode
+    if (this._strict) {
+      this._releasedIds.add(leaseId);
+      // Prevent unbounded growth
+      if (this._releasedIds.size > Governor._RELEASED_CACHE_SIZE) {
+        const first = this._releasedIds.values().next().value;
+        if (first !== undefined) this._releasedIds.delete(first);
+      }
+    }
 
     if (this._concurrency) {
       this._concurrency.release(lease.weight);
@@ -311,6 +346,22 @@ export class Governor {
     // Feed latency to adaptive controller
     if (this._adaptive && report?.latencyMs !== undefined) {
       this._adaptive.recordLatency(report.latencyMs);
+    }
+
+    // Strict mode: warn if lease was held for >80% of TTL
+    if (this._strict && this._onEvent) {
+      const heldMs = now() - lease.createdAt;
+      const threshold = this._ttlMs * 0.8;
+      if (heldMs > threshold) {
+        this._emit({
+          type: "warn",
+          timestamp: now(),
+          leaseId: lease.leaseId,
+          actorId: lease.actorId,
+          action: lease.action,
+          message: `Lease held for ${heldMs}ms (${Math.round((heldMs / this._ttlMs) * 100)}% of ${this._ttlMs}ms TTL). Consider releasing sooner or increasing leaseTtlMs.`,
+        });
+      }
     }
 
     this._emit({
