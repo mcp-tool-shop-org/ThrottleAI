@@ -1,3 +1,14 @@
 // ThrottleAI — lightweight, token-based AI governance
-// Barrel export — populated in later commits
-export {};
+export type {
+  GovernorConfig,
+  ConcurrencyConfig,
+  RateConfig,
+  AcquireRequest,
+  AcquireDecision,
+  ReleaseReport,
+  DenyReason,
+  LeaseOutcome,
+  Priority,
+  TokenEstimate,
+  Constraints,
+} from "./types.js";
