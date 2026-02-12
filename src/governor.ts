@@ -7,6 +7,7 @@ import type {
 } from "./types.js";
 import { LeaseStore } from "./leaseStore.js";
 import { ConcurrencyPool } from "./pools/concurrency.js";
+import { RatePool } from "./pools/rate.js";
 import { now } from "./utils/time.js";
 import { newLeaseId } from "./utils/id.js";
 
@@ -16,6 +17,7 @@ const DEFAULT_REAPER_INTERVAL_MS = 5_000;
 export class Governor {
   private readonly _store: LeaseStore;
   private readonly _concurrency: ConcurrencyPool | null;
+  private readonly _rate: RatePool | null;
   private readonly _ttlMs: number;
 
   constructor(config: GovernorConfig) {
@@ -26,6 +28,9 @@ export class Governor {
     this._concurrency = config.concurrency
       ? new ConcurrencyPool(config.concurrency)
       : null;
+
+    // Rate pool
+    this._rate = config.rate ? new RatePool(config.rate) : null;
 
     // Start reaper
     const reaperMs = config.reaperIntervalMs ?? DEFAULT_REAPER_INTERVAL_MS;
@@ -62,6 +67,24 @@ export class Governor {
           recommendation: "reduce concurrency or wait",
         };
       }
+    }
+
+    // Rate check
+    if (this._rate) {
+      const rateResult = this._rate.tryAcquire();
+      if (!rateResult.ok) {
+        // Roll back concurrency token if we acquired one
+        if (this._concurrency) {
+          this._concurrency.release();
+        }
+        return {
+          granted: false,
+          reason: "rate",
+          retryAfterMs: rateResult.retryAfterMs ?? 1_000,
+          recommendation: "reduce request frequency or wait",
+        };
+      }
+      this._rate.record();
     }
 
     // Issue lease
@@ -110,6 +133,14 @@ export class Governor {
 
   get concurrencyAvailable(): number {
     return this._concurrency?.available ?? Infinity;
+  }
+
+  get rateCount(): number {
+    return this._rate?.currentCount ?? 0;
+  }
+
+  get rateLimit(): number {
+    return this._rate?.limit ?? Infinity;
   }
 
   // ---------------------------------------------------------------------------
