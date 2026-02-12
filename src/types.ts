@@ -25,11 +25,26 @@ export interface FairnessConfig {
   starvationWindowMs?: number;
 }
 
+export interface AdaptiveConfig {
+  /** EMA smoothing factor (0–1, default 0.2). Higher = more responsive. */
+  alpha?: number;
+  /** Target deny rate (0–1, default 0.05). Above this → reduce concurrency. */
+  targetDenyRate?: number;
+  /** Latency increase ratio that triggers reduction (default 1.5). */
+  latencyThreshold?: number;
+  /** How often to recalculate in ms (default 5 000). */
+  adjustIntervalMs?: number;
+  /** Minimum effective concurrency (default 1). */
+  minConcurrency?: number;
+}
+
 export interface GovernorConfig {
   concurrency?: ConcurrencyConfig;
   rate?: RateConfig;
   /** Fairness settings. Set to `true` for defaults, or pass a config object. Only active when concurrency is configured. */
   fairness?: boolean | FairnessConfig;
+  /** Adaptive concurrency tuning. Set to `true` for defaults, or pass a config. Only active when concurrency is configured. */
+  adaptive?: boolean | AdaptiveConfig;
   /** Lease time-to-live in ms (default 60 000). */
   leaseTtlMs?: number;
   /** How often the reaper sweeps expired leases in ms (default 5 000). */

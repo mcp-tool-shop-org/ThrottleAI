@@ -10,6 +10,7 @@ import { ConcurrencyPool } from "./pools/concurrency.js";
 import { RatePool } from "./pools/rate.js";
 import { TokenRatePool } from "./pools/tokenRate.js";
 import { FairnessTracker } from "./fairness.js";
+import { AdaptiveController } from "./adaptive.js";
 import { now } from "./utils/time.js";
 import { newLeaseId } from "./utils/id.js";
 import { clampRetry } from "./utils/retry.js";
@@ -23,6 +24,7 @@ export class Governor {
   private readonly _rate: RatePool | null;
   private readonly _tokenRate: TokenRatePool | null;
   private readonly _fairness: FairnessTracker | null;
+  private readonly _adaptive: AdaptiveController | null;
   private readonly _ttlMs: number;
 
   constructor(config: GovernorConfig) {
@@ -63,6 +65,18 @@ export class Governor {
       this._fairness = null;
     }
 
+    // Adaptive controller (only meaningful with concurrency)
+    if (config.adaptive && this._concurrency) {
+      const adaptiveConfig =
+        typeof config.adaptive === "object" ? config.adaptive : {};
+      this._adaptive = new AdaptiveController(
+        config.concurrency!.maxInFlight,
+        adaptiveConfig,
+      );
+    } else {
+      this._adaptive = null;
+    }
+
     // Start reaper
     const reaperMs = config.reaperIntervalMs ?? DEFAULT_REAPER_INTERVAL_MS;
     this._store.startReaper(reaperMs, (expired) => this._onExpired(expired));
@@ -75,6 +89,12 @@ export class Governor {
   acquire(request: AcquireRequest): AcquireDecision {
     const priority = request.priority ?? "interactive";
     const weight = request.estimate?.weight ?? 1;
+
+    // Adaptive: maybe adjust effective concurrency
+    if (this._adaptive && this._concurrency) {
+      const newEffective = this._adaptive.maybeAdjust(now());
+      this._concurrency.effectiveMax = newEffective;
+    }
 
     // Idempotency check
     if (request.idempotencyKey) {
@@ -104,6 +124,9 @@ export class Governor {
         if (this._fairness) {
           this._fairness.recordDenial(request.actorId);
         }
+        if (this._adaptive) {
+          this._adaptive.recordDenial();
+        }
         return {
           granted: false,
           reason: "concurrency",
@@ -124,6 +147,9 @@ export class Governor {
           // Roll back the concurrency token
           this._concurrency.release(weight);
           this._fairness.recordDenial(request.actorId);
+          if (this._adaptive) {
+            this._adaptive.recordDenial();
+          }
           return {
             granted: false,
             reason: "policy",
@@ -195,6 +221,11 @@ export class Governor {
       this._fairness.recordAcquire(request.actorId, weight);
     }
 
+    // Track adaptive
+    if (this._adaptive) {
+      this._adaptive.recordAcquire();
+    }
+
     return {
       granted: true,
       leaseId: lease.leaseId,
@@ -224,6 +255,10 @@ export class Governor {
         this._tokenRate.updateActual(leaseId, actualTokens);
       }
     }
+    // Feed latency to adaptive controller
+    if (this._adaptive && report?.latencyMs !== undefined) {
+      this._adaptive.recordLatency(report.latencyMs);
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -242,6 +277,11 @@ export class Governor {
   /** Available weight capacity. */
   get concurrencyAvailable(): number {
     return this._concurrency?.available ?? Infinity;
+  }
+
+  /** Effective concurrency limit (may be lower than configured max when adaptive is active). */
+  get concurrencyEffectiveMax(): number {
+    return this._concurrency?.effectiveMax ?? Infinity;
   }
 
   get rateCount(): number {

@@ -15,17 +15,20 @@ export interface PoolResult {
 /**
  * Weight-aware concurrency pool.
  *
- * `maxInFlight` is the total weight capacity.
+ * `maxInFlight` is the total weight capacity (hard ceiling).
+ * `effectiveMax` can be set lower by the adaptive controller.
  * Each acquire specifies a weight (default 1), so legacy callers with
  * weight=1 behave exactly like the original count-based pool.
  */
 export class ConcurrencyPool {
   private readonly _maxWeight: number;
   private readonly _reserveWeight: number;
+  private _effectiveMax: number;
   private _inFlightWeight = 0;
 
   constructor(config: ConcurrencyPoolConfig) {
     this._maxWeight = config.maxInFlight;
+    this._effectiveMax = config.maxInFlight;
     this._reserveWeight = config.interactiveReserve ?? 0;
 
     if (this._reserveWeight >= this._maxWeight) {
@@ -45,7 +48,7 @@ export class ConcurrencyPool {
     earliestExpiryMs?: number,
     weight = 1,
   ): PoolResult {
-    const availableWeight = this._maxWeight - this._inFlightWeight;
+    const availableWeight = this._effectiveMax - this._inFlightWeight;
 
     if (availableWeight < weight) {
       return {
@@ -81,14 +84,24 @@ export class ConcurrencyPool {
     return this._inFlightWeight;
   }
 
-  /** Available weight capacity. */
+  /** Available weight capacity (based on effective max). */
   get available(): number {
-    return this._maxWeight - this._inFlightWeight;
+    return this._effectiveMax - this._inFlightWeight;
   }
 
-  /** Maximum weight capacity. */
+  /** Hard ceiling (configured maxInFlight). */
   get max(): number {
     return this._maxWeight;
+  }
+
+  /** Current effective max (may be lower than max when adaptive is active). */
+  get effectiveMax(): number {
+    return this._effectiveMax;
+  }
+
+  /** Set effective max (used by adaptive controller). Clamped to [1, max]. */
+  set effectiveMax(value: number) {
+    this._effectiveMax = Math.max(1, Math.min(this._maxWeight, value));
   }
 
   /**
@@ -101,7 +114,8 @@ export class ConcurrencyPool {
       return clampRetry(earliestExpiryMs);
     }
     // Fallback: pressure-based heuristic
-    const pressure = this._inFlightWeight / this._maxWeight;
+    const effectiveMax = this._effectiveMax || 1;
+    const pressure = this._inFlightWeight / effectiveMax;
     return clampRetry(Math.round(250 + pressure * 750));
   }
 }

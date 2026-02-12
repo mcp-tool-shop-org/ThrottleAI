@@ -16,6 +16,7 @@ export type {
   ConcurrencyConfig,
   RateConfig,
   FairnessConfig,
+  AdaptiveConfig,
   AcquireRequest,
   AcquireDecision,
   ReleaseReport,
