@@ -145,7 +145,7 @@ export class Governor {
           granted: false,
           reason: "concurrency",
           retryAfterMs: result.retryAfterMs ?? 500,
-          recommendation: "reduce concurrency or wait",
+          recommendation: `All ${this._concurrency.effectiveMax} slots in use (${this._concurrency.active} active). Retry in ${result.retryAfterMs ?? 500}ms or reduce concurrent calls.`,
         };
       }
 
@@ -178,7 +178,7 @@ export class Governor {
             granted: false,
             reason: "policy",
             retryAfterMs: retryMs,
-            recommendation: "actor exceeds fair share — other actors are waiting",
+            recommendation: `Actor "${request.actorId}" exceeds fair share. Other actors are waiting — retry in ${retryMs}ms.`,
           };
         }
       }
@@ -203,7 +203,7 @@ export class Governor {
           granted: false,
           reason: "rate",
           retryAfterMs: retryMs,
-          recommendation: "reduce request frequency or wait",
+          recommendation: `Rate limit hit (${this._rate!.currentCount}/${this._rate!.limit} req/window). Retry in ${retryMs}ms.`,
         };
       }
     }
@@ -228,7 +228,7 @@ export class Governor {
           granted: false,
           reason: "rate",
           retryAfterMs: retryMs,
-          recommendation: "reduce token usage or wait",
+          recommendation: `Token rate limit hit (${this._tokenRate!.currentTokens}/${this._tokenRate!.limit} tokens/window). Retry in ${retryMs}ms.`,
         };
       }
     }

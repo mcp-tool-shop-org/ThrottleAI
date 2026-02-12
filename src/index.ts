@@ -10,6 +10,9 @@ export { Governor } from "./governor.js";
 export { withLease } from "./withLease.js";
 export type { WithLeaseOptions, WithLeaseResult } from "./withLease.js";
 
+// Retry helpers
+export { waitForRetry, retryAcquire } from "./retry.js";
+
 // Presets
 export { presets } from "./presets.js";
 
