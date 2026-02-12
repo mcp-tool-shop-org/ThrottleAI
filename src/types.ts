@@ -49,6 +49,8 @@ export interface GovernorConfig {
   leaseTtlMs?: number;
   /** How often the reaper sweeps expired leases in ms (default 5 000). */
   reaperIntervalMs?: number;
+  /** Optional event handler. Receives structured events for acquire/deny/release/expire. No logging by default. */
+  onEvent?: GovernorEventHandler;
 }
 
 // ---------------------------------------------------------------------------
@@ -101,6 +103,53 @@ export interface ReleaseReport {
   /** Actual latency of the operation in ms. Used by adaptive tuning. */
   latencyMs?: number;
 }
+
+// ---------------------------------------------------------------------------
+// Snapshot (read-only state view)
+// ---------------------------------------------------------------------------
+
+export interface GovernorSnapshot {
+  /** Timestamp when the snapshot was taken. */
+  timestamp: number;
+  /** Number of active leases. */
+  activeLeases: number;
+  concurrency: {
+    active: number;
+    available: number;
+    max: number;
+    effectiveMax: number;
+  } | null;
+  requestRate: {
+    current: number;
+    limit: number;
+  } | null;
+  tokenRate: {
+    current: number;
+    limit: number;
+  } | null;
+  fairness: boolean;
+  adaptive: boolean;
+}
+
+// ---------------------------------------------------------------------------
+// Events
+// ---------------------------------------------------------------------------
+
+export type GovernorEventType = "acquire" | "deny" | "release" | "expire";
+
+export interface GovernorEvent {
+  type: GovernorEventType;
+  timestamp: number;
+  leaseId?: string;
+  actorId?: string;
+  action?: string;
+  reason?: DenyReason;
+  retryAfterMs?: number;
+  weight?: number;
+  outcome?: LeaseOutcome;
+}
+
+export type GovernorEventHandler = (event: GovernorEvent) => void;
 
 // ---------------------------------------------------------------------------
 // Internal lease record

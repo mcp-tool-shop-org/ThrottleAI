@@ -4,6 +4,9 @@ import type {
   AcquireDecision,
   ReleaseReport,
   Lease,
+  GovernorSnapshot,
+  GovernorEvent,
+  GovernorEventHandler,
 } from "./types.js";
 import { LeaseStore } from "./leaseStore.js";
 import { ConcurrencyPool } from "./pools/concurrency.js";
@@ -26,10 +29,12 @@ export class Governor {
   private readonly _fairness: FairnessTracker | null;
   private readonly _adaptive: AdaptiveController | null;
   private readonly _ttlMs: number;
+  private readonly _onEvent: GovernorEventHandler | null;
 
   constructor(config: GovernorConfig) {
     this._store = new LeaseStore();
     this._ttlMs = config.leaseTtlMs ?? DEFAULT_TTL_MS;
+    this._onEvent = config.onEvent ?? null;
 
     // Concurrency pool
     this._concurrency = config.concurrency
@@ -127,6 +132,15 @@ export class Governor {
         if (this._adaptive) {
           this._adaptive.recordDenial();
         }
+        this._emit({
+          type: "deny",
+          timestamp: now(),
+          actorId: request.actorId,
+          action: request.action,
+          reason: "concurrency",
+          retryAfterMs: result.retryAfterMs ?? 500,
+          weight,
+        });
         return {
           granted: false,
           reason: "concurrency",
@@ -150,10 +164,20 @@ export class Governor {
           if (this._adaptive) {
             this._adaptive.recordDenial();
           }
+          const retryMs = clampRetry(earliestExpiryMs ?? 500);
+          this._emit({
+            type: "deny",
+            timestamp: now(),
+            actorId: request.actorId,
+            action: request.action,
+            reason: "policy",
+            retryAfterMs: retryMs,
+            weight,
+          });
           return {
             granted: false,
             reason: "policy",
-            retryAfterMs: clampRetry(earliestExpiryMs ?? 500),
+            retryAfterMs: retryMs,
             recommendation: "actor exceeds fair share — other actors are waiting",
           };
         }
@@ -165,10 +189,20 @@ export class Governor {
       const rateResult = this._rate.tryAcquire();
       if (!rateResult.ok) {
         this._rollbackConcurrency(weight);
+        const retryMs = rateResult.retryAfterMs ?? 1_000;
+        this._emit({
+          type: "deny",
+          timestamp: now(),
+          actorId: request.actorId,
+          action: request.action,
+          reason: "rate",
+          retryAfterMs: retryMs,
+          weight,
+        });
         return {
           granted: false,
           reason: "rate",
-          retryAfterMs: rateResult.retryAfterMs ?? 1_000,
+          retryAfterMs: retryMs,
           recommendation: "reduce request frequency or wait",
         };
       }
@@ -180,10 +214,20 @@ export class Governor {
       const tokenResult = this._tokenRate.tryAcquire(estimatedTokens);
       if (!tokenResult.ok) {
         this._rollbackConcurrency(weight);
+        const retryMs = tokenResult.retryAfterMs ?? 1_000;
+        this._emit({
+          type: "deny",
+          timestamp: now(),
+          actorId: request.actorId,
+          action: request.action,
+          reason: "rate",
+          retryAfterMs: retryMs,
+          weight,
+        });
         return {
           granted: false,
           reason: "rate",
-          retryAfterMs: tokenResult.retryAfterMs ?? 1_000,
+          retryAfterMs: retryMs,
           recommendation: "reduce token usage or wait",
         };
       }
@@ -226,6 +270,15 @@ export class Governor {
       this._adaptive.recordAcquire();
     }
 
+    this._emit({
+      type: "acquire",
+      timestamp: now(),
+      leaseId: lease.leaseId,
+      actorId: request.actorId,
+      action: request.action,
+      weight,
+    });
+
     return {
       granted: true,
       leaseId: lease.leaseId,
@@ -259,6 +312,16 @@ export class Governor {
     if (this._adaptive && report?.latencyMs !== undefined) {
       this._adaptive.recordLatency(report.latencyMs);
     }
+
+    this._emit({
+      type: "release",
+      timestamp: now(),
+      leaseId: lease.leaseId,
+      actorId: lease.actorId,
+      action: lease.action,
+      weight: lease.weight,
+      outcome: report?.outcome,
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -303,6 +366,40 @@ export class Governor {
   }
 
   // ---------------------------------------------------------------------------
+  // Snapshot
+  // ---------------------------------------------------------------------------
+
+  /** Return a read-only snapshot of current governor state. */
+  snapshot(): GovernorSnapshot {
+    return {
+      timestamp: now(),
+      activeLeases: this._store.size,
+      concurrency: this._concurrency
+        ? {
+            active: this._concurrency.active,
+            available: this._concurrency.available,
+            max: this._concurrency.max,
+            effectiveMax: this._concurrency.effectiveMax,
+          }
+        : null,
+      requestRate: this._rate
+        ? {
+            current: this._rate.currentCount,
+            limit: this._rate.limit,
+          }
+        : null,
+      tokenRate: this._tokenRate
+        ? {
+            current: this._tokenRate.currentTokens,
+            limit: this._tokenRate.limit,
+          }
+        : null,
+      fairness: this._fairness !== null,
+      adaptive: this._adaptive !== null,
+    };
+  }
+
+  // ---------------------------------------------------------------------------
   // Cleanup
   // ---------------------------------------------------------------------------
 
@@ -335,6 +432,20 @@ export class Governor {
       if (this._fairness) {
         this._fairness.recordRelease(lease.actorId, lease.weight);
       }
+      this._emit({
+        type: "expire",
+        timestamp: now(),
+        leaseId: lease.leaseId,
+        actorId: lease.actorId,
+        action: lease.action,
+        weight: lease.weight,
+      });
+    }
+  }
+
+  private _emit(event: GovernorEvent): void {
+    if (this._onEvent) {
+      this._onEvent(event);
     }
   }
 }

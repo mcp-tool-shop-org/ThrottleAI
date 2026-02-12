@@ -28,4 +28,8 @@ export type {
   Priority,
   TokenEstimate,
   Constraints,
+  GovernorSnapshot,
+  GovernorEvent,
+  GovernorEventType,
+  GovernorEventHandler,
 } from "./types.js";
