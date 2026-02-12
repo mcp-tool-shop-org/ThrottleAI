@@ -8,7 +8,7 @@ export { Governor } from "./governor.js";
 
 // Helper
 export { withLease } from "./withLease.js";
-export type { WithLeaseOptions, WithLeaseResult } from "./withLease.js";
+export type { WithLeaseOptions, WithLeaseResult, WithLeaseStrategy } from "./withLease.js";
 
 // Retry helpers
 export { waitForRetry, retryAcquire } from "./retry.js";
@@ -31,6 +31,7 @@ export type {
   Priority,
   TokenEstimate,
   Constraints,
+  LimitsHint,
   GovernorSnapshot,
   GovernorEvent,
   GovernorEventType,

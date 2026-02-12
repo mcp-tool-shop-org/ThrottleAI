@@ -152,6 +152,10 @@ export class Governor {
           reason: "concurrency",
           retryAfterMs: result.retryAfterMs ?? 500,
           recommendation: `All ${this._concurrency.effectiveMax} slots in use (${this._concurrency.active} active). Retry in ${result.retryAfterMs ?? 500}ms or reduce concurrent calls.`,
+          limitsHint: {
+            inFlight: this._concurrency.active,
+            maxInFlight: this._concurrency.effectiveMax,
+          },
         };
       }
 
@@ -185,6 +189,10 @@ export class Governor {
             reason: "policy",
             retryAfterMs: retryMs,
             recommendation: `Actor "${request.actorId}" exceeds fair share. Other actors are waiting — retry in ${retryMs}ms.`,
+            limitsHint: {
+              inFlight: this._concurrency!.active,
+              maxInFlight: this._concurrency!.effectiveMax,
+            },
           };
         }
       }
@@ -210,6 +218,10 @@ export class Governor {
           reason: "rate",
           retryAfterMs: retryMs,
           recommendation: `Rate limit hit (${this._rate!.currentCount}/${this._rate!.limit} req/window). Retry in ${retryMs}ms.`,
+          limitsHint: {
+            rateUsed: this._rate!.currentCount,
+            rateLimit: this._rate!.limit,
+          },
         };
       }
     }
@@ -235,6 +247,10 @@ export class Governor {
           reason: "rate",
           retryAfterMs: retryMs,
           recommendation: `Token rate limit hit (${this._tokenRate!.currentTokens}/${this._tokenRate!.limit} tokens/window). Retry in ${retryMs}ms.`,
+          limitsHint: {
+            rateUsed: this._tokenRate!.currentTokens,
+            rateLimit: this._tokenRate!.limit,
+          },
         };
       }
     }
