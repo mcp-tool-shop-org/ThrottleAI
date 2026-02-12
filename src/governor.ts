@@ -8,8 +8,10 @@ import type {
 import { LeaseStore } from "./leaseStore.js";
 import { ConcurrencyPool } from "./pools/concurrency.js";
 import { RatePool } from "./pools/rate.js";
+import { FairnessTracker } from "./fairness.js";
 import { now } from "./utils/time.js";
 import { newLeaseId } from "./utils/id.js";
+import { clampRetry } from "./utils/retry.js";
 
 const DEFAULT_TTL_MS = 60_000;
 const DEFAULT_REAPER_INTERVAL_MS = 5_000;
@@ -18,6 +20,7 @@ export class Governor {
   private readonly _store: LeaseStore;
   private readonly _concurrency: ConcurrencyPool | null;
   private readonly _rate: RatePool | null;
+  private readonly _fairness: FairnessTracker | null;
   private readonly _ttlMs: number;
 
   constructor(config: GovernorConfig) {
@@ -31,6 +34,15 @@ export class Governor {
 
     // Rate pool
     this._rate = config.rate ? new RatePool(config.rate) : null;
+
+    // Fairness tracker (only meaningful with concurrency)
+    if (config.fairness && this._concurrency) {
+      const fairnessConfig =
+        typeof config.fairness === "object" ? config.fairness : {};
+      this._fairness = new FairnessTracker(fairnessConfig);
+    } else {
+      this._fairness = null;
+    }
 
     // Start reaper
     const reaperMs = config.reaperIntervalMs ?? DEFAULT_REAPER_INTERVAL_MS;
@@ -70,12 +82,36 @@ export class Governor {
         weight,
       );
       if (!result.ok) {
+        if (this._fairness) {
+          this._fairness.recordDenial(request.actorId);
+        }
         return {
           granted: false,
           reason: "concurrency",
           retryAfterMs: result.retryAfterMs ?? 500,
           recommendation: "reduce concurrency or wait",
         };
+      }
+
+      // Fairness check (after concurrency passes, before committing)
+      if (this._fairness) {
+        const fair = this._fairness.check(
+          request.actorId,
+          weight,
+          this._concurrency.max,
+          this._concurrency.active, // already includes this acquire's weight
+        );
+        if (!fair) {
+          // Roll back the concurrency token
+          this._concurrency.release(weight);
+          this._fairness.recordDenial(request.actorId);
+          return {
+            granted: false,
+            reason: "policy",
+            retryAfterMs: clampRetry(earliestExpiryMs ?? 500),
+            recommendation: "actor exceeds fair share — other actors are waiting",
+          };
+        }
       }
     }
 
@@ -112,6 +148,11 @@ export class Governor {
 
     this._store.add(lease);
 
+    // Track fairness
+    if (this._fairness) {
+      this._fairness.recordAcquire(request.actorId, weight);
+    }
+
     return {
       granted: true,
       leaseId: lease.leaseId,
@@ -126,8 +167,13 @@ export class Governor {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   release(leaseId: string, _report?: ReleaseReport): void {
     const lease = this._store.remove(leaseId);
-    if (lease && this._concurrency) {
+    if (!lease) return;
+
+    if (this._concurrency) {
       this._concurrency.release(lease.weight);
+    }
+    if (this._fairness) {
+      this._fairness.recordRelease(lease.actorId, lease.weight);
     }
   }
 
@@ -170,9 +216,12 @@ export class Governor {
   // ---------------------------------------------------------------------------
 
   private _onExpired(leases: Lease[]): void {
-    if (this._concurrency) {
-      for (const lease of leases) {
+    for (const lease of leases) {
+      if (this._concurrency) {
         this._concurrency.release(lease.weight);
+      }
+      if (this._fairness) {
+        this._fairness.recordRelease(lease.actorId, lease.weight);
       }
     }
   }

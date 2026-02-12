@@ -16,9 +16,18 @@ export interface RateConfig {
   windowMs?: number;
 }
 
+export interface FairnessConfig {
+  /** Fraction of maxInFlight weight an actor can hold before soft-cap (default 0.6). */
+  softCapRatio?: number;
+  /** How long a denied actor gets priority boost in ms (default 5 000). */
+  starvationWindowMs?: number;
+}
+
 export interface GovernorConfig {
   concurrency?: ConcurrencyConfig;
   rate?: RateConfig;
+  /** Fairness settings. Set to `true` for defaults, or pass a config object. Only active when concurrency is configured. */
+  fairness?: boolean | FairnessConfig;
   /** Lease time-to-live in ms (default 60 000). */
   leaseTtlMs?: number;
   /** How often the reaper sweeps expired leases in ms (default 5 000). */

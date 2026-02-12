@@ -15,6 +15,7 @@ export type {
   GovernorConfig,
   ConcurrencyConfig,
   RateConfig,
+  FairnessConfig,
   AcquireRequest,
   AcquireDecision,
   ReleaseReport,
