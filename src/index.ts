@@ -16,6 +16,10 @@ export { waitForRetry, retryAcquire } from "./retry.js";
 // Presets
 export { presets } from "./presets.js";
 
+// Testing utilities
+export { createTestClock } from "./utils/time.js";
+export type { Clock } from "./utils/time.js";
+
 // Types
 export type {
   GovernorConfig,
