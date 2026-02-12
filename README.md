@@ -1,7 +1,11 @@
-# ThrottleAI
+<p align="center">
+  <img src="logo.png" alt="ThrottleAI" width="400">
+</p>
 
-[![npm](https://img.shields.io/npm/v/throttleai)](https://www.npmjs.com/package/throttleai)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+<p align="center">
+  <a href="https://www.npmjs.com/package/throttleai"><img src="https://img.shields.io/npm/v/throttleai" alt="npm"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+</p>
 
 Lightweight, token-based AI governance for TypeScript. Control access to model calls through lease-based throttling with concurrency limits, rate limiting, and interactive priority reserve.
 
