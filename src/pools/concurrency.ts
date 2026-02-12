@@ -1,4 +1,5 @@
 import type { Priority } from "../types.js";
+import { clampRetry } from "../utils/retry.js";
 
 export interface ConcurrencyPoolConfig {
   maxInFlight: number;
@@ -27,13 +28,18 @@ export class ConcurrencyPool {
     }
   }
 
-  tryAcquire(priority: Priority): PoolResult {
+  /**
+   * @param priority Caller priority level.
+   * @param earliestExpiryMs Optional: ms until the earliest active lease expires.
+   *   When provided, used to compute a precise retryAfterMs instead of a heuristic.
+   */
+  tryAcquire(priority: Priority, earliestExpiryMs?: number): PoolResult {
     const available = this._max - this._active;
 
     if (available <= 0) {
       return {
         ok: false,
-        retryAfterMs: this._heuristicRetry(),
+        retryAfterMs: this._computeRetry(earliestExpiryMs),
         reason: "concurrency",
       };
     }
@@ -42,7 +48,7 @@ export class ConcurrencyPool {
     if (priority === "background" && available <= this._reserve) {
       return {
         ok: false,
-        retryAfterMs: this._heuristicRetry(),
+        retryAfterMs: this._computeRetry(earliestExpiryMs),
         reason: "concurrency",
       };
     }
@@ -69,9 +75,17 @@ export class ConcurrencyPool {
     return this._max;
   }
 
-  private _heuristicRetry(): number {
-    // Scale retry hint with pressure: more active = longer wait
+  /**
+   * Compute retryAfterMs.
+   * If earliestExpiryMs is provided and positive, use it (clamped).
+   * Otherwise, fall back to a pressure-based heuristic.
+   */
+  private _computeRetry(earliestExpiryMs?: number): number {
+    if (earliestExpiryMs !== undefined && earliestExpiryMs > 0) {
+      return clampRetry(earliestExpiryMs);
+    }
+    // Fallback: pressure-based heuristic
     const pressure = this._active / this._max;
-    return Math.round(250 + pressure * 750); // 250–1000ms
+    return clampRetry(Math.round(250 + pressure * 750));
   }
 }

@@ -1,4 +1,5 @@
 import { now } from "../utils/time.js";
+import { clampRetry } from "../utils/retry.js";
 
 export interface RatePoolConfig {
   requestsPerMinute: number;
@@ -28,10 +29,10 @@ export class RatePool {
     if (this._timestamps.length >= this._limit) {
       // Oldest entry determines when a slot opens
       const oldest = this._timestamps[0];
-      const retryAfterMs = oldest + this._windowMs - now();
+      const rawMs = oldest + this._windowMs - now();
       return {
         ok: false,
-        retryAfterMs: Math.max(1, retryAfterMs),
+        retryAfterMs: clampRetry(rawMs),
         reason: "rate",
       };
     }

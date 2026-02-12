@@ -50,6 +50,17 @@ export class LeaseStore {
     return this._leases.size;
   }
 
+  /** Returns the earliest `expiresAt` across all active leases, or `undefined` if empty. */
+  earliestExpiry(): number | undefined {
+    let min: number | undefined;
+    for (const lease of this._leases.values()) {
+      if (min === undefined || lease.expiresAt < min) {
+        min = lease.expiresAt;
+      }
+    }
+    return min;
+  }
+
   // -------------------------------------------------------------------------
   // TTL reaper
   // -------------------------------------------------------------------------

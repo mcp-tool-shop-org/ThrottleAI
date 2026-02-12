@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { RatePool } from "../src/pools/rate.js";
 import { Governor } from "../src/governor.js";
 import { setNow, resetNow } from "../src/utils/time.js";
+import { RETRY_MAX_MS } from "../src/utils/retry.js";
 
 describe("RatePool", () => {
   let time: number;
@@ -41,10 +42,9 @@ describe("RatePool", () => {
     expect(denied.ok).toBe(false);
     expect(denied.reason).toBe("rate");
     expect(denied.retryAfterMs).toBeGreaterThan(0);
-    // retryAfterMs should be roughly the time until the oldest entry expires
-    // oldest was at 100_000, window is 60s, now is 101_000
-    // so retry = 100_000 + 60_000 - 101_000 = 59_000
-    expect(denied.retryAfterMs).toBe(59_000);
+    // retryAfterMs raw = 100_000 + 60_000 - 101_000 = 59_000
+    // but clamped to RETRY_MAX_MS (5_000)
+    expect(denied.retryAfterMs).toBe(RETRY_MAX_MS);
   });
 
   it("window slides: old entries expire, new ones allowed", () => {

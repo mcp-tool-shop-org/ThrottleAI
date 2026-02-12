@@ -58,7 +58,12 @@ export class Governor {
 
     // Concurrency check
     if (this._concurrency) {
-      const result = this._concurrency.tryAcquire(priority);
+      // Compute ms until the earliest lease expires for precise retryAfter
+      const earliestExpiry = this._store.earliestExpiry();
+      const earliestExpiryMs =
+        earliestExpiry !== undefined ? earliestExpiry - now() : undefined;
+
+      const result = this._concurrency.tryAcquire(priority, earliestExpiryMs);
       if (!result.ok) {
         return {
           granted: false,
