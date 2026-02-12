@@ -91,6 +91,18 @@ export interface Constraints {
   maxOutputTokens?: number;
 }
 
+/** Structured hint about the limits that caused a denial. */
+export interface LimitsHint {
+  /** Current in-flight weight (concurrency denials). */
+  inFlight?: number;
+  /** Maximum allowed in-flight weight (concurrency denials). */
+  maxInFlight?: number;
+  /** Current request count in window (rate denials). */
+  rateUsed?: number;
+  /** Rate limit (rate denials). */
+  rateLimit?: number;
+}
+
 export type AcquireDecision =
   | {
       granted: true;
@@ -103,6 +115,8 @@ export type AcquireDecision =
       reason: DenyReason;
       retryAfterMs: number;
       recommendation: string;
+      /** Structured hint about the limits that caused the denial. */
+      limitsHint?: LimitsHint;
     };
 
 export interface ReleaseReport {
