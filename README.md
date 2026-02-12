@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="ThrottleAI" width="400">
+  <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/ThrottleAI/main/logo.png" alt="ThrottleAI" width="600">
 </p>
 
 <p align="center">
