@@ -11,6 +11,8 @@
   <em>A token-based lease governor for AI calls — small enough to embed anywhere, strict enough to prevent stampedes.</em>
 </p>
 
+**ThrottleAI is a zero-dependency governor for concurrency, rate, and token budgets, with adapters for fetch / OpenAI / tools / Express / Hono.**
+
 ---
 
 ## 60-second quickstart
@@ -335,6 +337,12 @@ See [`examples/`](examples/) for runnable demos:
 ```bash
 npx tsx examples/node-basic.ts
 ```
+
+## Stability
+
+ThrottleAI follows [Semantic Versioning](https://semver.org/). The public API — everything exported from `throttleai` and `throttleai/adapters/*` — is **stable** as of v1.0.0. Breaking changes require a major version bump.
+
+For details on what's considered public vs internal, see [API stability](docs/api-stability.md). For security reporting, see [SECURITY.md](.github/SECURITY.md).
 
 ## License
 

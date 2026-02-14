@@ -2,9 +2,20 @@
 
 All notable changes to **ThrottleAI** will be documented in this file.
 
-The format is based on *Keep a Changelog*, and the project adheres to *Semantic Versioning* once it reaches v1.0.0.
+The format is based on *Keep a Changelog*, and the project adheres to *Semantic Versioning*.
 
 ## [Unreleased]
+
+## [1.0.0] — 2026-02-14
+
+### Added
+- API stability documentation (`docs/api-stability.md`) — public vs internal API surface, stability guarantees, versioning policy.
+- Stability section in README with link to API stability doc and SECURITY.md.
+- Identity line in README: "ThrottleAI is a zero-dependency governor for concurrency, rate, and token budgets."
+
+### Changed
+- SECURITY.md updated with supported versions table (1.x current, 0.2.x security-only).
+- Semver posture: public API is now **stable**. Breaking changes require v2.0.0.
 
 ## [0.2.0] — 2026-02-14
 
