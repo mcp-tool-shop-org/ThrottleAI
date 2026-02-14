@@ -66,6 +66,22 @@ jobs:
       - name: Size guard
         run: node scripts/size-guard.js
 
+  # Block PRs that add files > 1 MB
+  file-size:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Check for oversized files
+        run: node scripts/file-size-guard.mjs
+
   # Canary job — smoke-tests reporter flags for vitest upgrade readiness.
   # Manual-only; does not block PRs.
   canary:

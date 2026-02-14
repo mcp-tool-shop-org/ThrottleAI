@@ -6,3 +6,7 @@ dist/
 coverage/
 *.log
 test-results.xml
+
+# Large binary guardrails — assets belong in GitHub Releases
+*.zip
+design_src/
