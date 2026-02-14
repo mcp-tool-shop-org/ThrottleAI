@@ -99,6 +99,7 @@
     "type": "git",
     "url": "https://github.com/mcp-tool-shop-org/ThrottleAI.git"
   },
+  "packageManager": "pnpm@10.28.2",
   "engines": {
     "node": ">=18"
   },
