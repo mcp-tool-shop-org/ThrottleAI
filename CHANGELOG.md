@@ -6,16 +6,28 @@ The format is based on *Keep a Changelog*, and the project adheres to *Semantic 
 
 ## [Unreleased]
 
+## [0.1.3] — 2026-02-14
+
+### Fixed
+- Governor `_emit` now catches errors thrown by user-supplied `onEvent` callbacks, preventing a logging crash from taking down the governor.
+
+### Changed
+- Upgraded Vitest from 2.x to 4.0.18 (dev tooling only — no public API changes).
+
+### Added
+- Compat harness CI workflow (`test-compat.yml`) for safe major-dependency upgrades.
+- `scripts/print-vitest-env.mjs` diagnostic helper for CI debugging.
+- Vitest upgrade protocol documented in `CONTRIBUTING.md`.
+- Safety-net tests: reaper TTL expiry, `onEvent` error isolation, post-dispose behavior, concurrent mutation (11 new tests, 240 total).
+
 ### Security
 - Bumped transitive `esbuild` to >=0.25.0 via pnpm override to address GHSA-67mh-4wv8-2f99 (dev-only).
 
-### Added
+### Added (repo hygiene)
 - `scripts/security-audit.mjs` — run `pnpm audit:prod` / `pnpm audit` locally.
 - Weekly security audit CI workflow (`security-audit.yml`) on schedule + `workflow_dispatch`.
 - Dependabot groups dev-tool updates into a single weekly PR.
 - `packageManager` field pins pnpm version for reproducible installs.
-- Testing conventions documented in `CONTRIBUTING.md`.
-- Canary CI job for vitest upgrade readiness (`workflow_dispatch` only).
 - `scripts/file-size-guard.mjs` — blocks PRs adding files > 1 MB.
 - `docs/repo-hygiene.md` — asset policy and history rewrite log.
 
