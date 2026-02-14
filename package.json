@@ -82,6 +82,7 @@
     "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build && node scripts/bundle-check.js && node scripts/size-guard.js",
     "audit:prod": "node scripts/security-audit.mjs --prod",
     "audit": "node scripts/security-audit.mjs",
+    "release:check": "node scripts/require-clean-version.mjs",
     "clean": "rm -rf dist"
   },
   "keywords": [
