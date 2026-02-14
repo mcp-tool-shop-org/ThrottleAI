@@ -14,6 +14,7 @@ export type {
 
 import type { AcquireRequest, AcquireDecision, Priority, TokenEstimate } from "../types.js";
 import type { AdapterGovernor } from "./types.js";
+import { now } from "../utils/time.js";
 
 // ---------------------------------------------------------------------------
 // Types — use minimal shapes so we don't need @types/express
@@ -136,11 +137,14 @@ export function throttleMiddleware(
       return;
     }
 
+    const start = now();
+
     // Release lease when response finishes
     const leaseId = decision.leaseId;
     res.on("finish", () => {
       governor.release(leaseId, {
         outcome: (res.statusCode ?? 200) < 400 ? "success" : "error",
+        latencyMs: now() - start,
       });
     });
 

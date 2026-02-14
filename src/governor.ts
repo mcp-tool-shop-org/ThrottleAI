@@ -354,6 +354,7 @@ export class Governor {
       this._releasedIds.add(leaseId);
       // Prevent unbounded growth
       if (this._releasedIds.size > Governor._RELEASED_CACHE_SIZE) {
+        // NOTE: relies on ES2015+ Set iteration preserving insertion order (FIFO eviction).
         const first = this._releasedIds.values().next().value;
         if (first !== undefined) this._releasedIds.delete(first);
       }

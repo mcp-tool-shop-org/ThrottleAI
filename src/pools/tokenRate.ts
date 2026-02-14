@@ -29,7 +29,13 @@ interface TokenEntry {
 export class TokenRatePool {
   private readonly _limit: number;
   private readonly _windowMs: number;
+
+  // Rolling window entries.
+  //
+  // We keep an index pointer instead of shift() to avoid O(n²) behavior under
+  // large windows or aggressive presets.
   private readonly _entries: TokenEntry[] = [];
+  private _head = 0;
 
   constructor(config: TokenRatePoolConfig) {
     this._limit = config.tokensPerMinute;
@@ -72,7 +78,7 @@ export class TokenRatePool {
    * If actual > estimated, the overage is added (best-effort tracking).
    */
   updateActual(leaseId: string, actualTokens: number): void {
-    for (let i = this._entries.length - 1; i >= 0; i--) {
+    for (let i = this._entries.length - 1; i >= this._head; i--) {
       if (this._entries[i].leaseId === leaseId) {
         this._entries[i].tokens = actualTokens;
         return;
@@ -93,16 +99,26 @@ export class TokenRatePool {
 
   private _sumTokens(): number {
     let total = 0;
-    for (const entry of this._entries) {
-      total += entry.tokens;
+    for (let i = this._head; i < this._entries.length; i++) {
+      total += this._entries[i].tokens;
     }
     return total;
   }
 
   private _prune(): void {
     const cutoff = now() - this._windowMs;
-    while (this._entries.length > 0 && this._entries[0].timestamp <= cutoff) {
-      this._entries.shift();
+
+    while (
+      this._head < this._entries.length &&
+      this._entries[this._head].timestamp <= cutoff
+    ) {
+      this._head++;
+    }
+
+    // Compact occasionally to avoid unbounded growth when the head advances.
+    if (this._head > 1024 && this._head > (this._entries.length >> 1)) {
+      this._entries.splice(0, this._head);
+      this._head = 0;
     }
   }
 
@@ -115,7 +131,8 @@ export class TokenRatePool {
 
     // Walk entries oldest-first, accumulating freed tokens
     let freed = 0;
-    for (const entry of this._entries) {
+    for (let i = this._head; i < this._entries.length; i++) {
+      const entry = this._entries[i];
       freed += entry.tokens;
       if (freed >= surplus) {
         // This entry's expiry time frees enough
