@@ -41,10 +41,24 @@ pnpm test:watch      # re-run on file changes
 
 **Node matrix:** CI runs on Node 18, 20, and 22.
 
+## Changelog
+
+If your change is user-facing (new feature, bug fix, breaking change, deprecation), add an entry to `CHANGELOG.md` under `## [Unreleased]` using the appropriate subsection:
+
+- **Added** — new features
+- **Changed** — changes to existing behavior
+- **Deprecated** — features marked for removal
+- **Removed** — features that were removed
+- **Fixed** — bug fixes
+- **Security** — vulnerability fixes
+
+Internal changes (refactors, CI tweaks, docs) do not need a changelog entry.
+
 ## Pull requests
 
 - Keep PRs focused (one theme per PR).
 - Add/adjust tests for behavior changes.
+- Update `CHANGELOG.md` for user-facing changes (see above).
 - Run `pnpm check` locally before opening the PR.
 - If you touch public API types (in `src/types.ts`), call that out explicitly in the PR description.
 
