@@ -4,6 +4,15 @@ All notable changes to **ThrottleAI** will be documented in this file.
 
 The format is based on *Keep a Changelog*, and the project adheres to *Semantic Versioning* once it reaches v1.0.0.
 
+## [Unreleased]
+
+### Security
+- Bumped transitive `esbuild` to >=0.25.0 via pnpm override to address GHSA-67mh-4wv8-2f99 (dev-only).
+
+### Added
+- `scripts/security-audit.mjs` — run `pnpm audit:prod` / `pnpm audit` locally.
+- Weekly security audit CI workflow (`security-audit.yml`) on schedule + `workflow_dispatch`.
+
 ## [0.1.2] — 2026-02-12
 
 ### Changed

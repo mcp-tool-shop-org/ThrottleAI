@@ -80,6 +80,8 @@
     "lint": "eslint src test",
     "typecheck": "tsc --noEmit",
     "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build && node scripts/bundle-check.js && node scripts/size-guard.js",
+    "audit:prod": "node scripts/security-audit.mjs --prod",
+    "audit": "node scripts/security-audit.mjs",
     "clean": "rm -rf dist"
   },
   "keywords": [
@@ -99,6 +101,11 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": ">=0.25.0"
+    }
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
