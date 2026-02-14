@@ -6,6 +6,11 @@ The format is based on *Keep a Changelog*, and the project adheres to *Semantic 
 
 ## [Unreleased]
 
+## [1.0.1] — 2026-02-14
+
+### Fixed
+- Release workflow pnpm version conflict — `pnpm/action-setup@v4` now reads `packageManager` from package.json instead of hardcoded version.
+
 ## [1.0.0] — 2026-02-14
 
 ### Added
