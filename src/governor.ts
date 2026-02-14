@@ -534,7 +534,13 @@ export class Governor {
 
   private _emit(event: GovernorEvent): void {
     if (this._onEvent) {
-      this._onEvent(event);
+      try {
+        this._onEvent(event);
+      } catch {
+        // Swallow errors from user-supplied event handlers.
+        // Crashing the governor because of a logging callback is worse
+        // than silently dropping the error.
+      }
     }
   }
 }
