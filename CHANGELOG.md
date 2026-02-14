@@ -6,6 +6,17 @@ The format is based on *Keep a Changelog*, and the project adheres to *Semantic 
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-02-14
+
+### Added
+- `createStatsCollector()` — zero-dependency stats helper for grants, denials, outcomes, and latency tracking. Wire to `onEvent` for instant observability.
+- Express adaptive example (`examples/express-adaptive/`) — runnable server with adaptive tuning and load generator showing real-time behavior.
+- Tuning cheatsheet (`docs/tuning-cheatsheet.md`) — scenario-based config guide with decision tree and knob reference.
+- Troubleshooting guide (`docs/troubleshooting.md`) — answers to common issues: always denied, stalls, adaptive oscillation, dispose behavior, onEvent errors.
+
+### Changed
+- README restructured for skimmability: "Choose your limiter" table, adapter telemetry matrix, docs links section.
+
 ## [0.1.3] — 2026-02-14
 
 ### Fixed
