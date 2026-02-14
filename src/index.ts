@@ -19,6 +19,10 @@ export { presets } from "./presets.js";
 // Formatting utilities
 export { formatEvent, formatSnapshot } from "./format.js";
 
+// Stats collector
+export { createStatsCollector } from "./stats.js";
+export type { StatsCollector, StatsSnapshot } from "./stats.js";
+
 // Testing utilities
 export { createTestClock } from "./utils/time.js";
 export type { Clock } from "./utils/time.js";
