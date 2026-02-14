@@ -65,3 +65,32 @@ jobs:
 
       - name: Size guard
         run: node scripts/size-guard.js
+
+  # Canary job — smoke-tests reporter flags for vitest upgrade readiness.
+  # Manual-only; does not block PRs.
+  canary:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Test with explicit reporters
+        run: pnpm exec vitest run --reporter=default --reporter=junit --outputFile.junit=test-results.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results.xml
