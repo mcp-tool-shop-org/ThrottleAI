@@ -51,6 +51,18 @@ AI applications hit rate limits, blow budgets, and create stampedes. ThrottleAI 
 
 Zero dependencies. Node.js 18+. Tree-shakeable.
 
+## Choose your limiter
+
+| Limiter | What it caps | When to use |
+|---------|-------------|-------------|
+| **Concurrency** | Simultaneous in-flight calls | Always — this is the most important knob |
+| **Rate** | Requests per minute | When the upstream API has a documented rate limit |
+| **Token rate** | Tokens per minute | When you have a per-minute token budget |
+| **Fairness** | Per-actor share of capacity | Multi-tenant apps where one user shouldn't hog slots |
+| **Adaptive** | Auto-tuned concurrency ceiling | When upstream latency is unpredictable |
+
+Start with concurrency. Add rate only if needed. See the [tuning cheatsheet](docs/tuning-cheatsheet.md) for scenario-based guidance.
+
 ## Presets
 
 ```ts
@@ -230,6 +242,16 @@ Stop the TTL reaper. Call on shutdown.
 
 Tree-shakeable wrappers — import only what you use. No runtime deps.
 
+| Adapter | Import | Auto-reports |
+|---------|--------|-------------|
+| **fetch** | `throttleai/adapters/fetch` | outcome (from HTTP status) + latency |
+| **OpenAI** | `throttleai/adapters/openai` | outcome + latency + token usage |
+| **Tool** | `throttleai/adapters/tools` | outcome + latency + custom weight |
+| **Express** | `throttleai/adapters/express` | outcome (from `res.statusCode`) + latency |
+| **Hono** | `throttleai/adapters/hono` | outcome + latency |
+
+All adapters return `{ ok: true, result, latencyMs }` on grant, `{ ok: false, decision }` on deny.
+
 ### fetch
 
 ```ts
@@ -265,6 +287,8 @@ app.use("/ai", throttleMiddleware({ governor: gov }));
 // 429 + Retry-After header + JSON body on deny
 ```
 
+See [`examples/express-adaptive/`](examples/express-adaptive/) for a full runnable server with adaptive tuning.
+
 ### Hono
 
 ```ts
@@ -273,9 +297,16 @@ app.use("/ai/*", throttle({ governor: gov }));
 // 429 JSON on deny, leaseId stored on context
 ```
 
-All adapters return `{ ok: true, result, latencyMs }` on grant, `{ ok: false, decision }` on deny.
+## Docs
 
-## Tuning guide
+| Document | What it covers |
+|----------|---------------|
+| [Tuning cheatsheet](docs/tuning-cheatsheet.md) | Scenario-based config guide, decision tree, knob reference |
+| [Troubleshooting](docs/troubleshooting.md) | Common issues: always denied, stalls, adaptive oscillation |
+| [Release manifest](docs/release-manifest.md) | Release process and artifact details |
+| [Repo hygiene](docs/repo-hygiene.md) | Asset policy and history rewrite log |
+
+## Tuning quick reference
 
 | You see this | Adjust this |
 |---|---|
@@ -287,17 +318,19 @@ All adapters return `{ ok: true, result, latencyMs }` on grant, `{ ok: false, de
 | Interactive latency high | Increase `interactiveReserve` |
 | Adaptive shrinks too fast | Lower `alpha` or raise `targetDenyRate` |
 
-Use `snapshot()` and `formatSnapshot()` to observe state in production.
+For deeper guidance, see the [tuning cheatsheet](docs/tuning-cheatsheet.md).
 
 ## Examples
 
 See [`examples/`](examples/) for runnable demos:
 
+- **[express-adaptive/](examples/express-adaptive/)** — full Express server with adaptive tuning + load generator
 - **[node-basic.ts](examples/node-basic.ts)** — burst simulation with snapshot printing
 - **[express-middleware.ts](examples/express-middleware.ts)** — 429 + retry-after endpoint
 - **[cookbook-adapters.ts](examples/cookbook-adapters.ts)** — all five adapters in action
 - **[cookbook-burst-snapshot.ts](examples/cookbook-burst-snapshot.ts)** — burst load with governor snapshots
 - **[cookbook-interactive-reserve.ts](examples/cookbook-interactive-reserve.ts)** — interactive vs background priority
+- **[cookbook-express-429.ts](examples/cookbook-express-429.ts)** — 429 vs queue retry pattern
 
 ```bash
 npx tsx examples/node-basic.ts
