@@ -1,34 +1,23 @@
 # Repo Hygiene
 
-## Large files in git history
+## History rewrite — 2026-02-14
 
-| File | Size | In HEAD? | Notes |
-|------|------|----------|-------|
-| `logo.png` | 2.1 MB | Yes | High-res PNG; README uses `logo.jpg` (62 KB) instead |
-| `logo.jpg` | 62 KB | Yes | Used by README — keep |
+`logo.png` (2.1 MB) was purged from all git history via `git filter-repo`.
+The pre-rewrite state is preserved at tag `pre-filter-repo-20260214`.
 
-**Total bloat: ~2.1 MB** — all from `logo.png`.
-
-The `throttleai_press_kit.zip` (4.3 MB) was never committed and should stay that way.
-
-## Where assets should live
-
-- **Logo (JPEG, ≤100 KB):** In-repo at `logo.jpg` — needed for npm/GitHub rendering.
-- **High-res assets, press kits, design sources:** Attach to a [GitHub Release](https://github.com/mcp-tool-shop-org/ThrottleAI/releases) as binary assets. Do not commit to the repo.
-
-## Cleanup plan
-
-1. Remove `logo.png` from HEAD (it's unused — README points to `logo.jpg`).
-2. Run `git filter-repo` to purge `logo.png` from all history.
-3. Force-push the rewritten history to `main`.
-4. Upload `logo.png` and press kit to a GitHub Release for archival.
-
-**After force-push, all contributors must re-clone:**
+**If you had an existing clone, you must re-clone:**
 
 ```bash
 # Delete your old clone, then:
 git clone https://github.com/mcp-tool-shop-org/ThrottleAI.git
 ```
+
+If you have local branches with unpushed work, contact a maintainer for help transplanting them.
+
+## Where assets should live
+
+- **Logo (JPEG, ≤100 KB):** In-repo at `logo.jpg` — needed for npm/GitHub rendering.
+- **High-res assets, press kits, design sources:** Attach to a [GitHub Release](https://github.com/mcp-tool-shop-org/ThrottleAI/releases) as binary assets. Do not commit to the repo.
 
 ## Guardrails
 

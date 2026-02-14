@@ -12,6 +12,15 @@ The format is based on *Keep a Changelog*, and the project adheres to *Semantic 
 ### Added
 - `scripts/security-audit.mjs` — run `pnpm audit:prod` / `pnpm audit` locally.
 - Weekly security audit CI workflow (`security-audit.yml`) on schedule + `workflow_dispatch`.
+- Dependabot groups dev-tool updates into a single weekly PR.
+- `packageManager` field pins pnpm version for reproducible installs.
+- Testing conventions documented in `CONTRIBUTING.md`.
+- Canary CI job for vitest upgrade readiness (`workflow_dispatch` only).
+- `scripts/file-size-guard.mjs` — blocks PRs adding files > 1 MB.
+- `docs/repo-hygiene.md` — asset policy and history rewrite log.
+
+### Removed
+- `logo.png` (2.1 MB) purged from HEAD and all git history via `git filter-repo`.
 
 ## [0.1.2] — 2026-02-12
 
