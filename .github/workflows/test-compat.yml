@@ -7,6 +7,10 @@ on:
 
 # Only run on PRs with the "compat" label
 # workflow_dispatch always runs (manual trigger)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   compat:
     if: >-
