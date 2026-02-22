@@ -12,7 +12,7 @@ on:
       - 'tsup.config.ts'
       - 'vitest.config.ts'
       - 'eslint.config.js'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/**'
   pull_request:
     branches: [main]
     paths:
@@ -24,14 +24,20 @@ on:
       - 'tsup.config.ts'
       - 'vitest.config.ts'
       - 'eslint.config.js'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/**'
   workflow_dispatch:
+    inputs:
+      rc-version:
+        description: 'RC version to validate (e.g. 0.2.0) — leave blank to skip RC'
+        required: false
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  # ── Core CI (lint / typecheck / test / build) ──────────────────────
   ci:
     runs-on: ubuntu-latest
     strategy:
@@ -68,7 +74,7 @@ jobs:
       - name: Size guard
         run: node scripts/size-guard.js
 
-  # Block PRs that add files > 1 MB
+  # ── Block PRs that add files > 1 MB ───────────────────────────────
   file-size:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
@@ -80,13 +86,11 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: 'pnpm'
 
       - name: Check for oversized files
         run: node scripts/file-size-guard.mjs
 
-  # Canary job — smoke-tests reporter flags for vitest upgrade readiness.
-  # Manual-only; does not block PRs.
+  # ── Canary — smoke-test vitest reporters (manual only) ─────────────
   canary:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
@@ -111,3 +115,106 @@ jobs:
         with:
           name: test-results
           path: test-results.xml
+
+  # ── Compat — multi-reporter matrix (manual or "compat" label) ──────
+  compat:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.pull_request.labels.*.name, 'compat')
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Print environment
+        run: node scripts/print-vitest-env.mjs
+
+      - name: Test (default reporter)
+        run: pnpm exec vitest run --reporter=default
+
+      - name: Test (JUnit reporter)
+        run: pnpm exec vitest run --reporter=junit --outputFile=test-results.xml
+
+      - name: Upload JUnit results
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: junit-node${{ matrix.node-version }}
+          path: test-results.xml
+
+  # ── Security audit (manual only) ──────────────────────────────────
+  audit:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Production audit (must pass)
+        run: pnpm audit:prod
+
+      - name: Full audit (informational)
+        run: pnpm audit || true
+
+  # ── Release candidate (manual with version input) ─────────────────
+  rc:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.rc-version != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Run all gates
+        run: pnpm check
+
+      - name: Verify changelog
+        run: node scripts/changelog-check.mjs
+
+      - name: Build metadata
+        run: node scripts/build-metadata.mjs
+
+      - name: Pack tarball
+        run: pnpm pack
+
+      - name: Generate checksums
+        run: node scripts/generate-checksums.mjs *.tgz dist/build-metadata.json
+
+      - name: Upload RC artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: rc-v${{ inputs.rc-version }}
+          path: |
+            *.tgz
+            checksums.txt
+            dist/build-metadata.json
+          retention-days: 14
