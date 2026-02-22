@@ -4,15 +4,13 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
+      interval: "monthly"
+    open-pull-requests-limit: 3
     labels:
       - "dependencies"
     commit-message:
       prefix: "deps"
     groups:
-      # Batch all dev tooling into one PR per week to reduce noise
       dev-tools:
         dependency-type: "development"
         patterns:
@@ -24,15 +22,12 @@ updates:
           - "tsup"
           - "typescript"
           - "@types/*"
-    # Security updates are created automatically by Dependabot Security
-    # Alerts (ungrouped, immediate) — no extra config needed.
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
+      interval: "monthly"
     open-pull-requests-limit: 3
     labels:
       - "dependencies"
