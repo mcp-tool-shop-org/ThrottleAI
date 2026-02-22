@@ -39,7 +39,7 @@ jobs:
         run: node scripts/generate-checksums.mjs *.tgz dist/build-metadata.json
 
       - name: Upload RC artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: rc-v${{ inputs.version }}
           path: |
