@@ -12,9 +12,10 @@ on:
       - 'tsup.config.ts'
       - 'vitest.config.ts'
       - 'eslint.config.js'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/**'
   pull_request:
     branches: [main]
+    types: [opened, labeled, synchronize]
     paths:
       - 'src/**'
       - 'test/**'
@@ -24,7 +25,7 @@ on:
       - 'tsup.config.ts'
       - 'vitest.config.ts'
       - 'eslint.config.js'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 concurrency:
@@ -110,4 +111,64 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: test-results
+          path: test-results.xml
+
+  # Security audit — runs on push to main and manual dispatch.
+  security-audit:
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Production audit (must pass)
+        run: pnpm audit:prod
+
+      - name: Full audit (informational)
+        run: pnpm audit || true
+
+  # Compat testing — label-gated on PRs, always runs on manual dispatch.
+  test-compat:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.pull_request.labels.*.name, 'compat')
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Print environment
+        run: node scripts/print-vitest-env.mjs
+
+      - name: Test (default reporter)
+        run: pnpm exec vitest run --reporter=default
+
+      - name: Test (JUnit reporter)
+        run: pnpm exec vitest run --reporter=junit --outputFile=test-results.xml
+
+      - name: Upload JUnit results
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: junit-node${{ matrix.node-version }}
           path: test-results.xml
