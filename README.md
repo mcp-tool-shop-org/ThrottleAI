@@ -350,6 +350,31 @@ ThrottleAI follows [Semantic Versioning](https://semver.org/). The public API �
 
 For details on what's considered public vs internal, see [API stability](docs/api-stability.md). For security reporting, see [SECURITY.md](.github/SECURITY.md).
 
+## Security & Data Scope
+
+| Aspect | Detail |
+|--------|--------|
+| **Data touched** | In-memory lease state, token counters, rate windows — all ephemeral |
+| **Data NOT touched** | No telemetry, no analytics, no persistent storage, no network calls, no credential handling |
+| **Permissions** | Pure in-memory library — no filesystem, no network, no OS-level access |
+| **Network** | None — library operates entirely in-process |
+| **Telemetry** | None collected or sent |
+
+See [SECURITY.md](SECURITY.md) for vulnerability reporting.
+
+## Scorecard
+
+| Category | Score |
+|----------|-------|
+| A. Security | 10 |
+| B. Error Handling | 10 |
+| C. Operator Docs | 10 |
+| D. Shipping Hygiene | 10 |
+| E. Identity (soft) | 10 |
+| **Overall** | **50/50** |
+
+> Full audit: [SHIP_GATE.md](SHIP_GATE.md) · [SCORECARD.md](SCORECARD.md)
+
 ## License
 
 MIT

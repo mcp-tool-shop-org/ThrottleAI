@@ -4,6 +4,13 @@ All notable changes to **ThrottleAI** will be documented in this file.
 
 The format is based on *Keep a Changelog*, and the project adheres to *Semantic Versioning*.
 
+## [1.1.2] — 2026-02-27
+
+### Added
+
+- Shipcheck audit — SHIP_GATE.md, SCORECARD.md, root SECURITY.md
+- Security & Data Scope section in README
+
 ## [1.0.2] — 2026-02-23
 
 ### Changed
