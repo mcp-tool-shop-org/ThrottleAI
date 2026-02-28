@@ -104,6 +104,13 @@ jobs:
             dist/build-metadata.json
 
       - name: Publish to npm
-        run: pnpm publish --provenance --access public --no-git-checks
+        run: |
+          pnpm publish --provenance --access public --no-git-checks 2>&1 | tee /tmp/publish.log || {
+            if grep -q "previously published" /tmp/publish.log; then
+              echo "::notice::Version already published — skipping"
+              exit 0
+            fi
+            exit 1
+          }
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
