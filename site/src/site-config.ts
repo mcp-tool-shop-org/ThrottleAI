@@ -15,7 +15,7 @@ export const config: SiteConfig = {
     headlineAccent: 'before they start.',
     description: 'Token-based lease governor for AI calls — small enough to embed anywhere, strict enough to enforce real limits on concurrency, tokens, and spend.',
     primaryCta: { href: '#usage', label: 'Get started' },
-    secondaryCta: { href: '#adapters', label: 'See adapters' },
+    secondaryCta: { href: 'handbook/', label: 'Read the Handbook' },
     previews: [
       { label: 'Install', code: 'npm install throttleai' },
       { label: 'Govern', code: `import { ThrottleAI } from 'throttleai';\n\nconst gov = new ThrottleAI({ rpm: 60, tpm: 100_000 });\nawait gov.acquire(estimatedTokens);` },

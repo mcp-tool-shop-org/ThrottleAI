@@ -1,0 +1,3575 @@
+{
+  "version": 1,
+  "entries": {
+    "feb39d0f04dd3e19": {
+      "translation": "**ThrottleAIは、並行処理、レート、およびトークン制限を管理するための、依存関係のないツールです。fetch、OpenAI、ツール、Express、Honoなどのアダプターが用意されています。**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "0da696eb24f021bd": {
+      "translation": "60秒で始める",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "d4bc5b5f5ae6c2ed": {
+      "translation": "これで完了です。このツールは、並行処理、レート制限、および公平性を強制します。リースは、解放することを忘れると自動的に期限切れになります。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "e8cddf057923e25a": {
+      "translation": "なぜ使うのか",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "8d6f3a1ba2250870": {
+      "translation": "AIアプリケーションは、レート制限に引っかかる、予算を超過する、または過剰なリクエストを引き起こすことがあります。ThrottleAIは、コードとモデルの呼び出しの間に位置し、以下の機能を強制します。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "408b23360766c54c": {
+      "translation": "- **並行処理:** 重み付きのスロットとインタラクティブなリザーブによる同時実行リクエスト数の制限\n- **レート:** 分あたりのリクエスト数とトークン数（ローリングウィンドウ）\n- **公平性:** 単一のエンティティがリソースを独占しないようにする\n- **リース:** 取得後、解放する。タイムアウト時には自動的に期限切れ\n- **可観測性:** デバッグ用の`snapshot()`、`onEvent`、および`formatEvent()`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "c56ba3131e2fff63": {
+      "translation": "依存関係はゼロ。Node.js 18以上。ツリーシェイクが可能。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "6b57c49c9792c145": {
+      "translation": "制限方法を選択",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "026a3a14dfe46504": {
+      "translation": "制限方法",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "9b5b08695b927deb": {
+      "translation": "制限対象",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "80efdef41ffb4c81": {
+      "translation": "使用場面",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "2a56d6ea96d9fd14": {
+      "translation": "---------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "651826877e732548": {
+      "translation": "-------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "c7cfc7ba90ca7aba": {
+      "translation": "同時実行リクエスト数",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "6c19942d16cb1887": {
+      "translation": "常に - これが最も重要な設定項目です",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "2a1e58e95ba8a93d": {
+      "translation": "1分あたりのリクエスト数",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "656dd54ec27db5cc": {
+      "translation": "アップストリームAPIにレート制限が明示的に定義されている場合",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "32a3b6040ff38c63": {
+      "translation": "1分あたりのトークン数",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "6fd13b7bdab9e495": {
+      "translation": "1分あたりのトークン予算がある場合",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "c08377a110f6e132": {
+      "translation": "各エンティティのリソース使用量",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "0a2c63e0df151534": {
+      "translation": "マルチテナント環境で、特定のユーザーがリソースを独占しないようにする場合",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "8702e756a4ece483": {
+      "translation": "自動調整された並行処理の上限",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "c28c1694de911dda": {
+      "translation": "アップストリームのレイテンシが予測できない場合",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "820eaa8beed3a0c9": {
+      "translation": "まず並行処理を設定し、必要に応じてレート制限を追加します。シナリオ別のガイダンスについては、[チューニングのヒント](docs/tuning-cheatsheet.md)を参照してください。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "d33028de4e7601ab": {
+      "translation": "プリセット",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "ad6d46a6a18ad9fa": {
+      "translation": "一般的なパターン",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "eaebdfc99094eed7": {
+      "translation": "サーバーエンドポイント: 429エラー vs キュー",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "9ccc0acbd56cc1c0": {
+      "translation": "UIインタラクション vs バックグラウンド処理",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "e5c123f7c0f4875d": {
+      "translation": "`interactiveReserve: 2`を設定すると、バックグラウンドタスクは残りの2つのスロットがインタラクティブなリクエストのために確保されている場合にのみブロックされます。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "56e9f2fa78cd1882": {
+      "translation": "ストリーミング処理",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "9bbb5788ea7f1509": {
+      "translation": "一度取得し、一度解放します。リースは、ストリームの期間中、有効なままです。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "54a1a401cf0da536": {
+      "translation": "可観測性: なぜスロットリングが発生しているかを確認",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "c184f48f73a05ae0": {
+      "translation": "設定",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "e6dc164fb426620d": {
+      "translation": "API",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "5c173302d899feda": {
+      "translation": "`createGovernor(config): Governor`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "9e46cf4ec93070ef": {
+      "translation": "ファクトリ関数。`Governor`インスタンスを返します。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "2ed49460aa92339d": {
+      "translation": "`governor.acquire(request): AcquireDecision`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "b3ac965138f189f4": {
+      "translation": "リースの取得を要求します。戻り値:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "fb36eae2622cbaf4": {
+      "translation": "拒否理由: `\"concurrency\"` | `\"rate\"` | `\"budget\"` | `\"policy\"`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "7e07e5951b641fae": {
+      "translation": "`governor.release(leaseId, report?): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "a05b18e3fa8300f7": {
+      "translation": "リースの解放。常にこの関数を呼び出すこと - エラーが発生した場合でも。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "3441e71e3c118894": {
+      "translation": "`withLease(governor, request, fn, options?)`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "8a7f3b6e16eae5ec": {
+      "translation": "自動的に解放されるリースの下で`fn`を実行します。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "0f5dd4f53b1dc67e": {
+      "translation": "`governor.snapshot(): GovernorSnapshot`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "7d506916766be6bc": {
+      "translation": "特定時点の状態: 並行処理、レート、トークン数、最後の拒否理由。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "1de383be6f1871e3": {
+      "translation": "`formatEvent(event): string` / `formatSnapshot(snap): string`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "159cf27e4168b999": {
+      "translation": "人間が読みやすい形式に変換する関数。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "75336d21eb6b7864": {
+      "translation": "ステータス取得関数",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "67adebed8320dbb1": {
+      "translation": "`governor.dispose(): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "f406bbb10b8a2ef0": {
+      "translation": "TTLリパーを停止します。シャットダウン時に呼び出します。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "0d5995e88b0fc66a": {
+      "translation": "アダプター",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "4f1883af48d6d1e5": {
+      "translation": "ツリーシェイク可能なラッパー。必要なものだけをインポートします。実行時の依存関係はありません。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "238500b3526b6c0d": {
+      "translation": "アダプター",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "3dd6dd3d0e8463e6": {
+      "translation": "インポート",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "4711410610d5c601": {
+      "translation": "自動レポート",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "9d7cee119080e668": {
+      "translation": "--------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "beb3ab86e1ccf334": {
+      "translation": "**fetch**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "69a9ce0c8c9decf8": {
+      "translation": "HTTPステータスからの結果 + レイテンシ",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "33422d785f42287f": {
+      "translation": "結果 + レイテンシ + トークン使用量",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "803b09bc78ecda93": {
+      "translation": "結果 + レイテンシ + カスタムの重み",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "da72b3c8fa7fb1cb": {
+      "translation": "`res.statusCode`からの結果 + レイテンシ",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "55f8bdbee1118b36": {
+      "translation": "結果 + レイテンシ",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "98ca63c17d017807": {
+      "translation": "すべてのアダプターは、許可された場合に `{ ok: true, result, latencyMs }` を、拒否された場合に `{ ok: false, decision }` を返します。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "df21f17a55b62003": {
+      "translation": "取得",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "4a59e01aac806d18": {
+      "translation": "OpenAI互換",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "26d75894daf23596": {
+      "translation": "ツール呼び出し",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "f152a5cbf1622288": {
+      "translation": "Express",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "dd9c5e2687d9bf17": {
+      "translation": "アダプティブなチューニング機能を備えた、完全な動作可能なサーバーの例については、[`examples/express-adaptive/`](examples/express-adaptive/) を参照してください。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "2c2f19f77e932869": {
+      "translation": "Hono",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "a67da2d8c2e1ec4c": {
+      "translation": "ドキュメント",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "9534531ac4a933ab": {
+      "translation": "ドキュメント",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "b29d02952c7e6a61": {
+      "translation": "内容",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "52494e60f0fbc76b": {
+      "translation": "----------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "d79ea0876891584f": {
+      "translation": "---------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412819
+    },
+    "eb4354bd2d4eafbc": {
+      "translation": "シナリオベースの構成ガイド、決定木、パラメータ参照",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "73b929fbb2a46695": {
+      "translation": "よくある問題: 常に拒否される、処理の遅延、アダプティブな発振",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "5829f17613fdd004": {
+      "translation": "リリースプロセスとアーティファクトの詳細",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "9ba50ddca9919df7": {
+      "translation": "アセットポリシーと履歴書き換えログ",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "b9e646150c464af2": {
+      "translation": "チューニングのクイックリファレンス",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "51a9857a81f69279": {
+      "translation": "これは表示されます。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "365102a67ca46ddb": {
+      "translation": "これを調整します。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "479e3366836c2712": {
+      "translation": "`maxInFlight` を増やしたり、呼び出し時間を短くしたりします。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "348dc9d6899ce701": {
+      "translation": "`requestsPerMinute` / `tokensPerMinute` を増やします。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "00127935a5dc8919": {
+      "translation": "`reason: \"policy\"` (公平性)",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "655925372d405b06": {
+      "translation": "`softCapRatio` を下げたり、`maxInFlight` を増やしたりします。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "2ab7fb7577417291": {
+      "translation": "`retryAfterMs` が高い。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "5b302f6c1d366f79": {
+      "translation": "`leaseTtlMs` を短くして、期限切れのリースがより早く解放されるようにします。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "705583d4a739380e": {
+      "translation": "バックグラウンドタスクが処理されなくなる。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "f60c074e8f0fb545": {
+      "translation": "`maxInFlight` を増やしたり、`interactiveReserve` を減らしたりします。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "f86bfbf321d6b815": {
+      "translation": "インタラクティブな遅延が大きい。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "d00887483857b948": {
+      "translation": "`interactiveReserve` を増やします。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "64c1662c4a47e342": {
+      "translation": "アダプティブな調整が速すぎる。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "a6832743ae87f4c9": {
+      "translation": "`alpha` を下げたり、`targetDenyRate` を上げたりします。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "ef19e755f41de986": {
+      "translation": "より詳細なガイダンスについては、[チューニングのチートシート](docs/tuning-cheatsheet.md) を参照してください。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "57fee1c97cadee10": {
+      "translation": "例",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "5f1f4f90bc53774c": {
+      "translation": "動作するデモについては、[`examples/`](examples/) を参照してください。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "e2fcbe71978f342b": {
+      "translation": "- **[express-adaptive/](examples/express-adaptive/)** — アダプティブなチューニング機能とロードジェネレーターを備えた、完全な Express サーバー\n- **[node-basic.ts](examples/node-basic.ts)** — スナップショットの印刷機能付きのバーストシミュレーション\n- **[express-middleware.ts](examples/express-middleware.ts)** — 429 エラーと retry-after エンドポイント\n- **[cookbook-adapters.ts](examples/cookbook-adapters.ts)** — すべての 5 つのアダプターの動作例\n- **[cookbook-burst-snapshot.ts](examples/cookbook-burst-snapshot.ts)** — ガバナーのスナップショット付きのバースト負荷\n- **[cookbook-interactive-reserve.ts](examples/cookbook-interactive-reserve.ts)** — インタラクティブとバックグラウンドの優先順位\n- **[cookbook-express-429.ts](examples/cookbook-express-429.ts)** — 429 エラーとキューリトライのパターン",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "a435da87ac346b19": {
+      "translation": "安定性",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "965f80d8f3f64dd8": {
+      "translation": "ThrottleAI は、[Semantic Versioning](https://semver.org/) に準拠しています。パブリックAPI（`throttleai` および `throttleai/adapters/*` からエクスポートされるものすべて）は、v1.0.0 以降、**安定**しています。メジャーバージョンが変更された場合、互換性のない変更が行われます。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "4c1703a357721eee": {
+      "translation": "パブリックと内部の違いについては、[APIの安定性](docs/api-stability.md) を参照してください。セキュリティに関する報告については、[SECURITY.md](.github/SECURITY.md) を参照してください。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "08ea9dfbe36d981b": {
+      "translation": "ライセンス",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "f044c126a8902f11": {
+      "translation": "MIT",
+      "model": "translategemma:12b",
+      "timestamp": 1772019412820
+    },
+    "e157baabb88436f6": {
+      "translation": "**ThrottleAI 是一款零依赖的速率控制工具，用于管理并发、速率和令牌预算，并提供适用于 fetch、OpenAI、工具、Express 和 Hono 的适配器。**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "cbe3124330f61caa": {
+      "translation": "60 秒快速入门",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "6bc5b9491d8ef007": {
+      "translation": "就是这样。该工具强制执行并发、速率限制和公平性。 如果您忘记释放，租约将自动过期。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "9810d3815576feae": {
+      "translation": "原因",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "94b9cb89b633b704": {
+      "translation": "AI 应用程序会超出速率限制，耗尽预算，并造成拥堵。 ThrottleAI 位于您的代码和模型调用之间，强制执行以下内容：",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "abd8097fbe8b592c": {
+      "translation": "- **并发性**：使用加权槽和交互式预留来限制并发调用。\n- **速率**：每分钟请求数和每分钟令牌数，并使用滑动窗口。\n- **公平性**：防止任何单个参与者垄断资源。\n- **租约**：在获取之前，在释放之后，并在超时时自动过期。\n- **可观察性**：`snapshot()`、`onEvent` 和 `formatEvent()` 用于调试。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "2bd1ac90d0d80d9a": {
+      "translation": "零依赖。Node.js 18+。可进行树摇优化。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "19d366f1c5e8b176": {
+      "translation": "选择您的速率限制器",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "ecffb423fa1bde6c": {
+      "translation": "速率限制器",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "8f4bfede377d68ce": {
+      "translation": "它限制的内容",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "a6ad2bd517628215": {
+      "translation": "使用场景",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "3c50ad19fc6c359b": {
+      "translation": "---------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "dd5b28ff24f8cbdb": {
+      "translation": "-------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "bd74a6d516159b19": {
+      "translation": "并发调用数",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "368ee4b12c3e7f87": {
+      "translation": "始终 - 这是最重要的参数。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "69e967a4b4212adc": {
+      "translation": "每分钟请求数",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "3d5f112bef2d5191": {
+      "translation": "当上游 API 具有已记录的速率限制时。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "6452b03f658a7fb7": {
+      "translation": "每分钟令牌数",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "447d6c7363e362a2": {
+      "translation": "当您有每分钟的令牌预算时。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "b4942a13faacd02a": {
+      "translation": "每个参与者的资源份额",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "a1fba6349a2a3020": {
+      "translation": "多租户应用程序，其中一个用户不应占用过多资源。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "c283ca6fbfb2a6b8": {
+      "translation": "自动调整的并发上限",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "a11f2cdfc3cd2a44": {
+      "translation": "当上游延迟不可预测时。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "2c167d7ef6c38378": {
+      "translation": "首先设置并发性。 仅在需要时添加速率限制。 请参阅[调整指南](docs/tuning-cheatsheet.md)，其中包含基于场景的建议。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "299de6e9605bbfdd": {
+      "translation": "预设配置",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "0a14093e27dcc405": {
+      "translation": "常见模式",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "e4c3e421ba8e390e": {
+      "translation": "服务器端点：429 错误 vs 队列",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "657f7bfa75a5a8b2": {
+      "translation": "UI 交互 vs 后台任务",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "d03ed5d57efcea93": {
+      "translation": "使用 `interactiveReserve: 2` 时，当仅剩 2 个槽时，后台任务将被阻止，这些槽保留用于交互式请求。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "8172fb46e29d954c": {
+      "translation": "流式调用",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "7b7dc588680e1977": {
+      "translation": "获取一次，释放一次——租约在整个流的持续时间内有效。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "6a4de461a66c3ae0": {
+      "translation": "可观察性：查看其限制的原因。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "f485b61099d5d966": {
+      "translation": "配置",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "0ad650c270eb8057": {
+      "translation": "API",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "f536b8e025c873aa": {
+      "translation": "`createGovernor(config): Governor`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "92d8bee4ec04dbeb": {
+      "translation": "工厂函数。 返回一个 `Governor` 实例。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "6f83e619c04b524b": {
+      "translation": "`governor.acquire(request): AcquireDecision`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "045e8380b0654744": {
+      "translation": "请求租约。 返回：",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "30a0d1db2ff5c33f": {
+      "translation": "拒绝原因：`\"concurrency\"` | `\"rate\"` | `\"budget\"` | `\"policy\"`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "40e023cf7ddb499c": {
+      "translation": "`governor.release(leaseId, report?): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "c8d9d8d7bced756c": {
+      "translation": "释放租约。 始终调用此方法——即使在发生错误时。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "118f00fc3890d291": {
+      "translation": "`withLease(governor, request, fn, options?)`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "2b9add270d840bac": {
+      "translation": "在租约下执行 `fn`，并在完成后自动释放。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "da285ae61eb4702b": {
+      "translation": "`governor.snapshot(): GovernorSnapshot`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "a66fc5125cb0b622": {
+      "translation": "当前状态：并发性、速率、令牌数、上次拒绝。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "b1a617e352c51528": {
+      "translation": "`formatEvent(event): string` / `formatSnapshot(snap): string`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "74720d2c7498ec2c": {
+      "translation": "单行、易于阅读的格式化器。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "214d405f1260304d": {
+      "translation": "状态获取器",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "b28c9652dfe850df": {
+      "translation": "`governor.dispose(): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "4033c925c8f613c7": {
+      "translation": "停止 TTL 清理器。 在关闭时调用。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "ae29663f4ee703f4": {
+      "translation": "适配器",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "6bf0b97bb8b88a23": {
+      "translation": "可进行树摇优化的包装器——仅导入您使用的内容。 没有运行时依赖。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "2be4e85a06e66c8d": {
+      "translation": "适配器",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "8051a4e60c082f7c": {
+      "translation": "导入",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "3395775a1f7bbcdd": {
+      "translation": "自动报告",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "15d90ade51a88a14": {
+      "translation": "--------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "367099a51a3dbc0b": {
+      "translation": "**fetch**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "1a61302a7e9d6779": {
+      "translation": "结果（来自 HTTP 状态码）+ 延迟",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "748b00ab4349a3f9": {
+      "translation": "结果 + 延迟 + 令牌使用量",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "9e3c7bc2b70139ff": {
+      "translation": "结果 + 延迟 + 自定义权重",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "7efa56fe00305207": {
+      "translation": "结果（来自 `res.statusCode`）+ 延迟",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "b466f35ac52ea3c3": {
+      "translation": "结果 + 延迟",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "120d66031229043a": {
+      "translation": "所有适配器在授权时返回 `{ ok: true, result, latencyMs }`，在拒绝时返回 `{ ok: false, decision }`。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "c189fd9208ce9215": {
+      "translation": "fetch",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "abbcc7d4b12153a4": {
+      "translation": "与 OpenAI 兼容",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "7a63f3da70729d20": {
+      "translation": "工具调用",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "82bc62e4f29ad6bd": {
+      "translation": "Express",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476034
+    },
+    "28dbe4e1ce8aea0c": {
+      "translation": "请参考 [`examples/express-adaptive/`](examples/express-adaptive/) 目录，了解一个完整的可运行服务器，该服务器具有自适应调整功能。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "b343de4748900c5b": {
+      "translation": "Hono",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "6ed7031777ff0f77": {
+      "translation": "文档",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "b5a9b6513b5608f3": {
+      "translation": "文档",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "743991d2c1ac3359": {
+      "translation": "内容概要",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "7bc35c26567fc0cb": {
+      "translation": "----------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "9b655f5c93b9d5ed": {
+      "translation": "---------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "55d77490433c0d31": {
+      "translation": "基于场景的配置指南、决策树、参数参考",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "4e75924ec4539552": {
+      "translation": "常见问题：始终被拒绝、系统卡顿、自适应震荡",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "c49bb212d20ed49f": {
+      "translation": "发布流程和构建包详情",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "8982171d1c700ae6": {
+      "translation": "资源策略和历史重写日志",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "95ea832528395ff2": {
+      "translation": "参数快速参考",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "4c9d311d46caa75f": {
+      "translation": "您会看到这个",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "6ed78d9a8562ed48": {
+      "translation": "调整这个",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "7c3a85176566ca89": {
+      "translation": "增加 `maxInFlight` 或减少调用时长",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "d6a89775fb1b6c41": {
+      "translation": "增加 `requestsPerMinute` / `tokensPerMinute`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "8adc73b071c317f3": {
+      "translation": "`reason: \"policy\"` (公平性)",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "3a9c1a88b4176490": {
+      "translation": "降低 `softCapRatio` 或增加 `maxInFlight`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "d82663eef2621a36": {
+      "translation": "`retryAfterMs` 值过高",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "77ad8e34a8133f83": {
+      "translation": "减少 `leaseTtlMs`，以便过期的租约更快释放",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "736094b12ceaf187": {
+      "translation": "后台任务被阻塞",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "8cbce9ef41419589": {
+      "translation": "增加 `maxInFlight` 或减少 `interactiveReserve`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "d65f5d334b3ffaae": {
+      "translation": "交互式延迟过高",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "ec3856e058c7f308": {
+      "translation": "增加 `interactiveReserve`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "dbac5f28d684e688": {
+      "translation": "自适应调整速度过快",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "5e3bbd771a5bbf73": {
+      "translation": "降低 `alpha` 或提高 `targetDenyRate`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "fee03563171bde17": {
+      "translation": "如需更详细的指导，请参阅 [参数优化技巧](docs/tuning-cheatsheet.md)。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "88dc46f11df804aa": {
+      "translation": "示例",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "c1496e383ef8537e": {
+      "translation": "请参考 [`examples/`](examples/) 目录，了解可运行的演示示例：",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "a6f6763465a9f6f6": {
+      "translation": "- **[express-adaptive/](examples/express-adaptive/)** — 完整的 Express 服务器，具有自适应调整功能 + 负载生成器\n- **[node-basic.ts](examples/node-basic.ts)** — 带有快照打印的突发模拟\n- **[express-middleware.ts](examples/express-middleware.ts)** — 429 + retry-after 接口\n- **[cookbook-adapters.ts](examples/cookbook-adapters.ts)** — 所有五个适配器的实际应用\n- **[cookbook-burst-snapshot.ts](examples/cookbook-burst-snapshot.ts)** — 带有治理快照的突发负载\n- **[cookbook-interactive-reserve.ts](examples/cookbook-interactive-reserve.ts)** — 交互式与后台优先级\n- **[cookbook-express-429.ts](examples/cookbook-express-429.ts)** — 429 与队列重试模式",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "36242e0741287b07": {
+      "translation": "稳定性",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "d256db4504242b44": {
+      "translation": "ThrottleAI 遵循 [语义版本控制](https://semver.org/)。公共 API — 从 `throttleai` 和 `throttleai/adapters/*` 导出的所有内容 — 从 v1.0.0 开始，**稳定**。 破坏性更改需要进行主版本升级。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "30d512bed2f61bd0": {
+      "translation": "有关公共 API 与内部 API 的详细信息，请参阅 [API 稳定性](docs/api-stability.md)。 如有安全漏洞报告，请参阅 [SECURITY.md](.github/SECURITY.md)。",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "1fb815b9a436fadb": {
+      "translation": "许可证",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "6325e155e3ad88d6": {
+      "translation": "MIT",
+      "model": "translategemma:12b",
+      "timestamp": 1772019476035
+    },
+    "c858d4a143f7436d": {
+      "translation": "**ThrottleAI es un controlador sin dependencias para la concurrencia, los límites de velocidad y los presupuestos de tokens, con adaptadores para fetch / OpenAI / herramientas / Express / Hono.**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "d897d543ab9771db": {
+      "translation": "Guía de inicio rápido en 60 segundos.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "f132365e8e1bd155": {
+      "translation": "Eso es todo. El controlador aplica la concurrencia, los límites de velocidad y la equidad. Las concesiones caducan automáticamente si olvidas liberarlas.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "5d816d36d89fe697": {
+      "translation": "¿Por qué?",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "06fcf0a6a7ad690e": {
+      "translation": "Las aplicaciones de IA alcanzan los límites de velocidad, exceden los presupuestos y causan sobrecargas. ThrottleAI se encuentra entre tu código y la llamada al modelo, aplicando:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "90e72200588337ae": {
+      "translation": "- **Concurrencia:** Limita el número de llamadas simultáneas con espacios asignados y una reserva interactiva.\n- **Velocidad:** Solicitudes/minuto y tokens/minuto con ventanas deslizantes.\n- **Equidad:** Ningún componente monopoliza la capacidad.\n- **Concesiones:** Se obtienen antes, se liberan después y caducan automáticamente en caso de tiempo de espera.\n- **Observabilidad:** `snapshot()`, `onEvent` y `formatEvent` para la depuración.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "ef91a2b3bc5fcf33": {
+      "translation": "Sin dependencias. Node.js 18+. Se puede eliminar código no utilizado.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "772e74b4019d858d": {
+      "translation": "Elige tu limitador.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "2c0545a91df6f3ec": {
+      "translation": "Limitador.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "5d402a36ae317a8d": {
+      "translation": "¿Qué limita?",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "5160fdefe2a39dcc": {
+      "translation": "¿Cuándo usarlo?",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "f2088caa76d4a948": {
+      "translation": "---------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "184e6ce2c9237895": {
+      "translation": "-------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "32f8ffd500d676ac": {
+      "translation": "Llamadas simultáneas en curso.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "950d9c9a0f96d49b": {
+      "translation": "Siempre: este es el parámetro más importante.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "aa064928874d0498": {
+      "translation": "Solicitudes por minuto.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "b2f3f6731959d1ef": {
+      "translation": "Cuando la API de origen tiene un límite de velocidad documentado.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "c3e00f614de97c1e": {
+      "translation": "Tokens por minuto.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "f50ca1183e176b4a": {
+      "translation": "Cuando tienes un presupuesto de tokens por minuto.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "3fa7027b3b4a476e": {
+      "translation": "Porcentaje de la capacidad asignado a cada componente.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "220de5c3155b049d": {
+      "translation": "Aplicaciones multi-inquilino donde un usuario no debe consumir todos los recursos.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "3d12b34a762cfde4": {
+      "translation": "Límite de concurrencia ajustado automáticamente.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "1ef9e53e7afc0f16": {
+      "translation": "Cuando la latencia de la API de origen es impredecible.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "8167106515f4d818": {
+      "translation": "Comienza con la concurrencia. Agrega el límite de velocidad solo si es necesario. Consulta la [guía de ajuste](docs/tuning-cheatsheet.md) para obtener recomendaciones basadas en escenarios.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "5549f46737e9e0bd": {
+      "translation": "Configuraciones predefinidas.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "6a72a385c4f5f4f7": {
+      "translation": "Patrones comunes.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "c2b8dd8b0faad124": {
+      "translation": "Punto final del servidor: 429 vs cola.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "014c413a4b66bc14": {
+      "translation": "Interfaz de usuario interactiva vs tareas en segundo plano.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "d90e61be8d81d693": {
+      "translation": "Con `interactiveReserve: 2`, las tareas en segundo plano se bloquean cuando solo quedan 2 espacios, reservándolos para las solicitudes interactivas.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "1514c608c6a76a99": {
+      "translation": "Llamadas de transmisión.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "0fbddb18626c6c47": {
+      "translation": "Obtén una concesión una vez, libérala una vez: la concesión se mantiene durante toda la duración de la transmisión.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "e9380704a9615821": {
+      "translation": "Observabilidad: descubre por qué se está limitando.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "9489401db048958d": {
+      "translation": "Configuración.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "aa675900b35881dd": {
+      "translation": "API.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "deebd8a9b8e520d1": {
+      "translation": "`createGovernor(config): Governor`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "37704c1092930400": {
+      "translation": "Función de fábrica. Devuelve una instancia de `Governor`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "3d22efc24dbd3590": {
+      "translation": "`governor.acquire(request): AcquireDecision`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "0237eab53b4d9566": {
+      "translation": "Solicita una concesión. Devuelve:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "c8e4590fccc7228c": {
+      "translation": "Razones de denegación: `\"concurrencia\"`, `\"velocidad\"`, `\"presupuesto\"`, `\"política\"`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "17563d7ecd70cb0b": {
+      "translation": "`governor.release(leaseId, report?): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "e358c4d08d4983f0": {
+      "translation": "Libera una concesión. Llama a esto siempre, incluso en caso de errores.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "c435c073dba9d9cd": {
+      "translation": "`withLease(governor, request, fn, options?)`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "512314c92e9423b4": {
+      "translation": "Ejecuta `fn` bajo una concesión con liberación automática.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "d61d97e3c6f8fa6b": {
+      "translation": "`governor.snapshot(): GovernorSnapshot`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "fa96aadca387c6b7": {
+      "translation": "Estado en un momento dado: concurrencia, velocidad, tokens, último denegación.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "e8b4bf32420faba7": {
+      "translation": "`formatEvent(event): string` / `formatSnapshot(snap): string`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "284ba24236b0cdea": {
+      "translation": "Formatos de una sola línea y fáciles de leer.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "c812e0a4807646b3": {
+      "translation": "Métodos para obtener el estado.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "c9dfcfa3a098a019": {
+      "translation": "`governor.dispose(): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "d985218bec9e4b01": {
+      "translation": "Detiene el recolector de TTL. Llama al apagar el sistema.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "b1678a800bb134fe": {
+      "translation": "Adaptadores.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "e6542680a830da0c": {
+      "translation": "Wrappers que se pueden eliminar código no utilizado. Importa solo lo que necesitas. Sin dependencias en tiempo de ejecución.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "0057b2c1bf66039d": {
+      "translation": "Adaptador.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "bf1730756484974a": {
+      "translation": "Importación.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "d68ea3fccb7a72d2": {
+      "translation": "Informes automáticos.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "eeb36bd7b5ceedf9": {
+      "translation": "--------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "3752ac7dce84b99b": {
+      "translation": "**fetch**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "b523e4b79a6500ff": {
+      "translation": "Resultado (a partir del código de estado HTTP) + latencia.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "5250dca3a07676c7": {
+      "translation": "Resultado + latencia + uso de tokens.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "2d9683f754226b9a": {
+      "translation": "Resultado + latencia + peso personalizado.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "f1f14ce59e00deed": {
+      "translation": "Resultado (a partir de `res.statusCode`) + latencia.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "c4f23951a7ce850d": {
+      "translation": "Resultado + latencia.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "e03bbe4dbee78319": {
+      "translation": "Todos los adaptadores devuelven `{ ok: true, result, latencyMs }` cuando se concede el acceso, y `{ ok: false, decision }` cuando se deniega.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "f226c1b43f3ec99d": {
+      "translation": "obtener",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "3814edfbcfd59f47": {
+      "translation": "Compatible con OpenAI",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "19bfbdc14dbef645": {
+      "translation": "Llamada a la herramienta",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "08ab75de190e7e5f": {
+      "translation": "Express",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "e92bf104a3f2f3c6": {
+      "translation": "Consulte [`examples/express-adaptive/`](examples/express-adaptive/) para obtener un servidor completo y funcional con ajuste adaptativo.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "b3606623660d8108": {
+      "translation": "Hono",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "e359eb7f4fc4ebae": {
+      "translation": "Documentación",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "6a8844036324be82": {
+      "translation": "Documento",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "646769e0510be7ad": {
+      "translation": "Qué cubre",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "7566658296739da2": {
+      "translation": "----------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "e289afa17a53ea15": {
+      "translation": "---------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "8698e9ec20926ef6": {
+      "translation": "Guía de configuración basada en escenarios, árbol de decisiones, referencia de parámetros.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "45c26b38fb434594": {
+      "translation": "Problemas comunes: siempre denegado, bloqueos, oscilación adaptativa.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "0816490c12a826a9": {
+      "translation": "Proceso de lanzamiento y detalles de los artefactos.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "ee4a8b1d7e94b351": {
+      "translation": "Política de recursos y registro de reescritura del historial.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "5bd033ae92d2d13f": {
+      "translation": "Referencia rápida de ajuste.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "930cfd60a3ddeaa1": {
+      "translation": "Verá esto",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "2c078ef057f4e06d": {
+      "translation": "Ajuste esto",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "2b4c1260d3ba9b16": {
+      "translation": "Aumente `maxInFlight` o disminuya la duración de la llamada.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "f43f23a200cafda2": {
+      "translation": "Aumente `requestsPerMinute` / `tokensPerMinute`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "1b482f024d803095": {
+      "translation": "`reason: \"policy\"` (equidad)",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "16480b6d8a15259d": {
+      "translation": "Disminuya `softCapRatio` o aumente `maxInFlight`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "d54fd60cd267a73e": {
+      "translation": "Alto `retryAfterMs`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "52294593ed4253a9": {
+      "translation": "Reduzca `leaseTtlMs` para que los permisos expirados se liberen más rápidamente.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "92af44038456afef": {
+      "translation": "Tareas en segundo plano con falta de recursos.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "a38a781dea366886": {
+      "translation": "Aumente `maxInFlight` o reduzca `interactiveReserve`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "b3d1c60b87704cf3": {
+      "translation": "Alta latencia interactiva.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "0427966d413b4a0f": {
+      "translation": "Aumente `interactiveReserve`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "a74b0938c19edc2b": {
+      "translation": "El ajuste adaptativo se reduce demasiado rápido.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "809e9b9c66c87507": {
+      "translation": "Disminuya `alpha` o aumente `targetDenyRate`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "106817486d6855a9": {
+      "translation": "Para obtener más información, consulte la [guía rápida de ajuste](docs/tuning-cheatsheet.md).",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "05e975f2ae1e68c4": {
+      "translation": "Ejemplos",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "723b1d37f3383fe0": {
+      "translation": "Consulte [`examples/`](examples/) para obtener demostraciones funcionales:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "ebcd60690ef55209": {
+      "translation": "- **[express-adaptive/](examples/express-adaptive/)** — servidor Express completo con ajuste adaptativo + generador de carga.\n- **[node-basic.ts](examples/node-basic.ts)** — simulación de ráfaga con impresión de instantáneas.\n- **[express-middleware.ts](examples/express-middleware.ts)** — punto final 429 + retry-after.\n- **[cookbook-adapters.ts](examples/cookbook-adapters.ts)** — todos los cinco adaptadores en acción.\n- **[cookbook-burst-snapshot.ts](examples/cookbook-burst-snapshot.ts)** — carga de ráfaga con instantáneas del gobernador.\n- **[cookbook-interactive-reserve.ts](examples/cookbook-interactive-reserve.ts)** — prioridad interactiva frente a la de segundo plano.\n- **[cookbook-express-429.ts](examples/cookbook-express-429.ts)** — 429 frente al patrón de reintento de la cola.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "c49e400cf0968c6d": {
+      "translation": "Estabilidad",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "3290a1d37e96b370": {
+      "translation": "ThrottleAI sigue [Semantic Versioning](https://semver.org/). La API pública (todo lo exportado de `throttleai` y `throttleai/adapters/*`) es **estable** a partir de la versión 1.0.0. Los cambios que rompen la compatibilidad requieren un aumento de la versión principal.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "ec03ebcd48b24e29": {
+      "translation": "Para obtener detalles sobre lo que se considera público frente a interno, consulte [estabilidad de la API](docs/api-stability.md). Para informar de problemas de seguridad, consulte [SECURITY.md](.github/SECURITY.md).",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "9572f74b6d3f62b1": {
+      "translation": "Licencia",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "ed7f97ee046bbb09": {
+      "translation": "MIT",
+      "model": "translategemma:12b",
+      "timestamp": 1772019555401
+    },
+    "34824ff12f6a68cc": {
+      "translation": "**ThrottleAI est un régulateur sans dépendances pour la gestion de la concurrence, des limites de débit et des budgets de jetons, avec des adaptateurs pour fetch / OpenAI / tools / Express / Hono.**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "2c64880818bb4db2": {
+      "translation": "Démarrage rapide en 60 secondes",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "ce4e56044445af3e": {
+      "translation": "C'est tout. Le régulateur applique la gestion de la concurrence, les limites de débit et l'équité. Les licences expirent automatiquement si vous oubliez de les libérer.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f80fd7f517f0a656": {
+      "translation": "Pourquoi ?",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "26ac8e74aa95ca25": {
+      "translation": "Les applications d'IA atteignent les limites de débit, dépassent les budgets et créent des engorgements. ThrottleAI se situe entre votre code et l'appel au modèle, et applique les règles suivantes :",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "797183b41d04b735": {
+      "translation": "- **Concurrence** : limite le nombre d'appels simultanés avec des emplacements pondérés et une réserve interactive.\n- **Débit** : nombre de requêtes/minute et de jetons/minute avec des fenêtres glissantes.\n- **Équité** : aucun acteur ne monopolise la capacité.\n- **Licences** : acquérir avant, libérer après, expiration automatique en cas de délai d'attente.\n- **Observabilité** : `snapshot()`, `onEvent` et `formatEvent()` pour le débogage.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "d405d3cb538b1900": {
+      "translation": "Sans dépendances. Node.js 18+. Peut être utilisé par arbres de dépendances.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "6de17a7fb545a300": {
+      "translation": "Choisissez votre limiteur",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "9af257c540efc4c6": {
+      "translation": "Limiteur",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f6390df97e89fb4e": {
+      "translation": "Ce qu'il limite",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "ffb80514ab13457b": {
+      "translation": "Quand l'utiliser",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "9c7087410e6c6801": {
+      "translation": "---------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "42738f280dbf39b2": {
+      "translation": "-------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "c78cdc2776054ae2": {
+      "translation": "Nombre d'appels simultanés en cours",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "62f217acc55229e9": {
+      "translation": "Toujours – c'est le paramètre le plus important.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "e6f68e7ba4a9473e": {
+      "translation": "Requêtes par minute",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f4b3b247a38bf1ab": {
+      "translation": "Lorsque l'API distante a une limite de débit documentée.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "5ba5a9707b2f36e8": {
+      "translation": "Jetons par minute",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "804b6c9fb9f6abbe": {
+      "translation": "Lorsque vous avez un budget de jetons par minute.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "bb243a006c036e16": {
+      "translation": "Part de la capacité allouée à chaque acteur.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "c891cde05eed4a75": {
+      "translation": "Applications multi-locataires où un utilisateur ne doit pas monopoliser les ressources.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "448035c1f32a510d": {
+      "translation": "Limite de concurrence ajustée automatiquement.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f2503a3908f51cc6": {
+      "translation": "Lorsque la latence de l'API distante est imprévisible.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "6683ddc509ff449f": {
+      "translation": "Commencez par la concurrence. Ajoutez une limite de débit uniquement si nécessaire. Consultez la [fiche de réglage](docs/tuning-cheatsheet.md) pour obtenir des conseils basés sur des scénarios.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "638eb967eab83569": {
+      "translation": "Préconfigurations",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "c7ec3cc7d46049d2": {
+      "translation": "Motifs courants",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "fc6f0dded6e74e6b": {
+      "translation": "Point de terminaison de serveur : 429 vs file d'attente",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "8541f5f642d4389c": {
+      "translation": "Interface utilisateur interactive vs tâches en arrière-plan",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "7a0592a158f93a97": {
+      "translation": "Avec `interactiveReserve: 2`, les tâches en arrière-plan sont bloquées lorsque seulement 2 emplacements restent, ce qui réserve ces emplacements pour les requêtes interactives.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "0b894ef754a84da5": {
+      "translation": "Appels en streaming",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "3459b9cf3f0944e5": {
+      "translation": "Acquérir une fois, libérer une fois – la licence est valide pendant toute la durée du flux.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "7450ca00608b312f": {
+      "translation": "Observabilité : voir pourquoi il limite.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "b34ee5ed97e49101": {
+      "translation": "Configuration",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "65fd1e0736e27810": {
+      "translation": "API",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "06bee378900fef0e": {
+      "translation": "`createGovernor(config): Governor`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "e93914273fc7c6d4": {
+      "translation": "Fonction de création. Renvoie une instance de `Governor`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "82d66954f660ad31": {
+      "translation": "`governor.acquire(request): AcquireDecision`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "cd6ee243fa12ee17": {
+      "translation": "Demande une licence. Renvoie :",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "def596825f385ec4": {
+      "translation": "Raisons du refus : `\"concurrence\"`, `\"débit\"`, `\"budget\"`, `\"politique\"`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "9530e3ee7341679d": {
+      "translation": "`governor.release(leaseId, report?): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "fa3d534ca726d63b": {
+      "translation": "Libère une licence. Appelez toujours cette fonction, même en cas d'erreur.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "bcd06b0f7899c83b": {
+      "translation": "`withLease(governor, request, fn, options?)`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "e61fc3b616af61b2": {
+      "translation": "Exécute `fn` sous une licence avec libération automatique.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "2875d1c395cfc7e7": {
+      "translation": "`governor.snapshot(): GovernorSnapshot`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "370470d5802bf133": {
+      "translation": "État à un instant donné : concurrence, débit, jetons, dernier refus.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "1d4b99a68982be84": {
+      "translation": "`formatEvent(event): string` / `formatSnapshot(snap): string`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f7a8a048a56d18d5": {
+      "translation": "Formatteurs lisibles par l'homme en une seule ligne.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "a9d297a3f87b6101": {
+      "translation": "Fonctions de statut",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "72751abd14494614": {
+      "translation": "`governor.dispose(): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "395e5efdf9612282": {
+      "translation": "Arrête le processus de suppression des licences expirées. À appeler lors de l'arrêt.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "94a88c597b2879c8": {
+      "translation": "Adaptateurs",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "d14ef23ec62e4cd9": {
+      "translation": "Enveloppements utilisables par arbres de dépendances – importez uniquement ce dont vous avez besoin. Aucune dépendance d'exécution.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "3364f35184c3edf1": {
+      "translation": "Adaptateur",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "34138fe0fffd9214": {
+      "translation": "Importation",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "bb53d758313a9089": {
+      "translation": "Rapports automatiques",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f4a92f03e0709542": {
+      "translation": "--------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "8e9c2d0795a0ab78": {
+      "translation": "**fetch**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "3f8f4a8f46640ef7": {
+      "translation": "Résultat (à partir du code de statut HTTP) + latence",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "9029d62b50553ad7": {
+      "translation": "Résultat + latence + utilisation des jetons",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "3f79bcee755f6140": {
+      "translation": "Résultat + latence + poids personnalisé",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "195c78016d5a5213": {
+      "translation": "Résultat (à partir de `res.statusCode`) + latence",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "41fd8a59528ca4d2": {
+      "translation": "Résultat + latence",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "92512d9ee48d1823": {
+      "translation": "Tous les adaptateurs renvoient `{ ok: true, result, latencyMs }` en cas d'autorisation, et `{ ok: false, decision }` en cas de refus.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "d3c6c438749011f1": {
+      "translation": "Récupérer",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "7c9a32fd53db1061": {
+      "translation": "Compatible avec OpenAI",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "dfa0c2110723b8bf": {
+      "translation": "Appel de fonction",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "70bad09842ea9129": {
+      "translation": "Express",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "83f4ed9a4e7c4722": {
+      "translation": "Consultez [`examples/express-adaptive/`](examples/express-adaptive/) pour un serveur complet et fonctionnel avec réglage adaptatif.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "eb2eb5a28a7a417f": {
+      "translation": "Hono",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "ebfb691c8831b985": {
+      "translation": "Documentation",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "65959cae6e85c0ef": {
+      "translation": "Document",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "46b4ce71834b7593": {
+      "translation": "Ce que cela couvre",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "6b553dd92e93e2b8": {
+      "translation": "----------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "1fa3cb40d7fdc23e": {
+      "translation": "---------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "1b9387af08db2f7d": {
+      "translation": "Guide de configuration basé sur des scénarios, arbre de décision, référence des paramètres.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "4cd0bff5715043ca": {
+      "translation": "Problèmes courants : refus systématiques, blocages, oscillations adaptatives.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "8d0fc2b0e966f52e": {
+      "translation": "Processus de publication et détails des artefacts.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "9a4a0122ec9ee5ba": {
+      "translation": "Politique des ressources et journal de réécriture de l'historique.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "c29fba9e421f9196": {
+      "translation": "Guide rapide de réglage.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "8cb412c0b7bc7712": {
+      "translation": "Vous voyez ceci",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "a8071fed7e654db0": {
+      "translation": "Ajustez ceci",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f5874d2600bb74ca": {
+      "translation": "Augmentez `maxInFlight` ou diminuez la durée de l'appel.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f3fcc08068472703": {
+      "translation": "Augmentez `requestsPerMinute` / `tokensPerMinute`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "e77e69768a1d33c3": {
+      "translation": "`reason: \"policy\"` (équité)",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "11c8d227cbdc8c99": {
+      "translation": "Diminuez `softCapRatio` ou augmentez `maxInFlight`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "c6a61a62a4f1329b": {
+      "translation": "`retryAfterMs` élevé.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "32d39b6cae6975db": {
+      "translation": "Réduisez `leaseTtlMs` pour que les locations expirées soient libérées plus rapidement.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "da1619872357f7b2": {
+      "translation": "Tâches en arrière-plan privées de ressources.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f9fcb40f6d11425a": {
+      "translation": "Augmentez `maxInFlight` ou réduisez `interactiveReserve`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "d3b92828f674bb47": {
+      "translation": "Latence interactive élevée.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "60b0e5867af97195": {
+      "translation": "Augmentez `interactiveReserve`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "558f67716fd5ffa7": {
+      "translation": "Réglage adaptatif trop rapide.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "bd44466c3d218685": {
+      "translation": "Diminuez `alpha` ou augmentez `targetDenyRate`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "2d33c2532425eadb": {
+      "translation": "Pour obtenir des conseils plus approfondis, consultez la [fiche de triche de réglage](docs/tuning-cheatsheet.md).",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "60309a27a7d858d0": {
+      "translation": "Exemples",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "fff355d70d0dce72": {
+      "translation": "Consultez [`examples/`](examples/) pour des démonstrations fonctionnelles :",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "3a2a61fae02caaba": {
+      "translation": "- **[express-adaptive/](examples/express-adaptive/)** — serveur Express complet avec réglage adaptatif + générateur de charge.\n- **[node-basic.ts](examples/node-basic.ts)** — simulation de pics avec affichage des instantanés.\n- **[express-middleware.ts](examples/express-middleware.ts)** — point de terminaison 429 + retry-after.\n- **[cookbook-adapters.ts](examples/cookbook-adapters.ts)** — tous les cinq adaptateurs en action.\n- **[cookbook-burst-snapshot.ts](examples/cookbook-burst-snapshot.ts)** — charge de pics avec instantanés du régulateur.\n- **[cookbook-interactive-reserve.ts](examples/cookbook-interactive-reserve.ts)** — priorité interactive par rapport aux tâches en arrière-plan.\n- **[cookbook-express-429.ts](examples/cookbook-express-429.ts)** — 429 par rapport au modèle de nouvelle tentative de file d'attente.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "851b458b9524970e": {
+      "translation": "Stabilité",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "a227529ea3e2ceee": {
+      "translation": "ThrottleAI suit la [version sémantique](https://semver.org/). L'API publique — tout ce qui est exporté de `throttleai` et `throttleai/adapters/*` — est **stable** à partir de la version 1.0.0. Les modifications incompatibles nécessitent une augmentation de la version majeure.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "f63d241aeaf0586b": {
+      "translation": "Pour plus de détails sur ce qui est considéré comme public par rapport à ce qui est interne, consultez [stabilité de l'API](docs/api-stability.md). Pour les signalements de sécurité, consultez [SECURITY.md](.github/SECURITY.md).",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "0174ffc9d6992c72": {
+      "translation": "Licence",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639266
+    },
+    "9d6e22ae9823640e": {
+      "translation": "MIT",
+      "model": "translategemma:12b",
+      "timestamp": 1772019639267
+    },
+    "536268cf8ef7b428": {
+      "translation": "**ThrottleAI एक ऐसा उपकरण है जो किसी भी निर्भरता के बिना, समवर्तीता, दर और टोकन उपयोग को नियंत्रित करता है, और इसमें fetch, OpenAI, टूल्स, Express और Hono के लिए अनुकूलन मौजूद हैं।**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "767b846f01b89886": {
+      "translation": "60 सेकंड में शुरुआत करें",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "a8e1423d78fd3fbe": {
+      "translation": "बस इतना ही। यह उपकरण समवर्तीता, दर सीमा और निष्पक्षता को लागू करता है। यदि आप रिलीज़ करना भूल जाते हैं, तो लीज़ स्वचालित रूप से समाप्त हो जाते हैं।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "04d49f6a9c899e5b": {
+      "translation": "क्यों?",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "a12af78c390bcc9b": {
+      "translation": "एआई एप्लिकेशन दर सीमाओं से बाधित होते हैं, बजट से अधिक हो जाते हैं, और भीड़भाड़ पैदा करते हैं। ThrottleAI आपके कोड और मॉडल कॉल के बीच स्थित होता है, और निम्नलिखित को लागू करता है:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "6f99ee826af97b97": {
+      "translation": "- **समवर्तीता:** भारित स्लॉट और इंटरैक्टिव रिजर्व के साथ, एक साथ किए जा सकने वाले अनुरोधों की संख्या को सीमित करें।\n- **दर:** प्रति मिनट अनुरोध और टोकन की संख्या को सीमित करें, जिसमें समय के साथ बदलावों को ध्यान में रखा जाता है।\n- **निष्पक्षता:** यह सुनिश्चित करें कि कोई भी उपयोगकर्ता या प्रक्रिया संसाधनों का एकाधिकार न करे।\n- **लीज़:** उपयोग करने से पहले लीज़ प्राप्त करें, उपयोग के बाद रिलीज़ करें, और समय सीमा समाप्त होने पर स्वचालित रूप से समाप्त हो जाएं।\n- **निगरानी:** डिबगिंग के लिए `snapshot()`, `onEvent`, और `formatEvent()` का उपयोग करें।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "4e1f95db1f85fa1f": {
+      "translation": "इसमें किसी भी बाहरी निर्भरता की आवश्यकता नहीं है। Node.js 18+ पर चलता है। इसे आसानी से कोड में शामिल किया जा सकता है।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "b08fe7c88f871ada": {
+      "translation": "अपनी पसंद का लिमिटर चुनें",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "8e2c760923e205d7": {
+      "translation": "लिमिटर",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "52c2dcbe6ad316b3": {
+      "translation": "यह क्या सीमित करता है",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "c93c8cd30ae5d286": {
+      "translation": "कब उपयोग करें",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "1a20fc4dc8ce3304": {
+      "translation": "---------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "bc35e1f9228e8622": {
+      "translation": "-------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "729ea4ce20c96591": {
+      "translation": "एक साथ चल रहे अनुरोध",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "d46034383c28a6a9": {
+      "translation": "हमेशा - यह सबसे महत्वपूर्ण सेटिंग है।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "3086ea03d0bfd1eb": {
+      "translation": "प्रति मिनट अनुरोध",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "b6877d0b88da75a0": {
+      "translation": "जब बाहरी एपीआई में दर सीमा निर्धारित हो।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "f11791080cc2995e": {
+      "translation": "प्रति मिनट टोकन",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "153b55ffb59d562f": {
+      "translation": "जब आपके पास प्रति मिनट टोकन उपयोग का बजट हो।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "3a6510ba15f50982": {
+      "translation": "प्रत्येक उपयोगकर्ता/प्रक्रिया के लिए संसाधनों का हिस्सा",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "2290ef0d0df9a3c6": {
+      "translation": "ऐसे एप्लिकेशन जहां एक उपयोगकर्ता को संसाधनों पर एकाधिकार नहीं रखना चाहिए।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "6ee9e210dc546ea7": {
+      "translation": "स्वचालित रूप से समायोजित की गई समवर्तीता सीमा",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "b5a60a5ec64f871a": {
+      "translation": "जब बाहरी सिस्टम की प्रतिक्रिया समय अप्रत्याशित हो।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "51aa37e47cf4b5dc": {
+      "translation": "सबसे पहले समवर्तीता को समायोजित करें। केवल आवश्यकता होने पर ही दर सीमा जोड़ें। परिदृश्य-आधारित मार्गदर्शन के लिए [ट्यूनिंग चीटशीट](docs/tuning-cheatsheet.md) देखें।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "5d25a54fb0c4f35f": {
+      "translation": "पूर्व-निर्धारित सेटिंग्स",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "fc0876f53dfe2b8c": {
+      "translation": "सामान्य उपयोग के मामले",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "37c2b1c7ab752955": {
+      "translation": "सर्वर एंडपॉइंट: 429 त्रुटि बनाम कतार",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "6a953eb94d41bd0d": {
+      "translation": "यूआई इंटरैक्शन बनाम पृष्ठभूमि कार्य",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "248da450af70b92d": {
+      "translation": "`interactiveReserve: 2` के साथ, जब केवल 2 स्लॉट बचे होते हैं, तो पृष्ठभूमि कार्य अवरुद्ध हो जाते हैं, ताकि वे इंटरैक्टिव अनुरोधों के लिए उपलब्ध रहें।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "75a08e5ed34c12b4": {
+      "translation": "स्ट्रीमिंग अनुरोध",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "e332fadf58930813": {
+      "translation": "एक बार प्राप्त करें, एक बार रिलीज़ करें - लीज़ पूरी स्ट्रीम की अवधि के लिए सक्रिय रहता है।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "77b3d363e99382d7": {
+      "translation": "निगरानी: यह क्यों अनुरोधों को सीमित कर रहा है, यह देखें",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "5073e935ef64949d": {
+      "translation": "कॉन्फ़िगरेशन",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "ba13b17b1a5ca03a": {
+      "translation": "एपीआई",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "268fe511ec516085": {
+      "translation": "`createGovernor(config): Governor`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "a461c5ce22b28b23": {
+      "translation": "एक फ़ैक्टरी फ़ंक्शन। यह `Governor` ऑब्जेक्ट लौटाता है।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "707ea575f76b5e0d": {
+      "translation": "`governor.acquire(request): AcquireDecision`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "95ba76709032bc9a": {
+      "translation": "एक लीज़ का अनुरोध करें। यह निम्नलिखित जानकारी लौटाता है:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "99bda3b90304c2c1": {
+      "translation": "अस्वीकृति के कारण: `\"concurrency\"`, `\"rate\"`, `\"budget\"`, या `\"policy\"`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "af7ab1e1d012d0f4": {
+      "translation": "`governor.release(leaseId, report?): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "0611325d21e2b417": {
+      "translation": "एक लीज़ को रिलीज़ करें। इसे हमेशा कॉल करें - भले ही कोई त्रुटि हो।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "98a6463867d7522e": {
+      "translation": "`withLease(governor, request, fn, options?)`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "22afc14b39b8ae6a": {
+      "translation": "एक लीज़ के तहत `fn` फ़ंक्शन को निष्पादित करें, जिसमें स्वचालित रूप से लीज़ रिलीज़ हो जाती है।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "844ca41ae3ba9412": {
+      "translation": "`governor.snapshot(): GovernorSnapshot`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "ea24919a2521b4a4": {
+      "translation": "वर्तमान स्थिति: समवर्तीता, दर, टोकन, अंतिम अस्वीकृति।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "32cf573548aa3a42": {
+      "translation": "`formatEvent(event): string` / `formatSnapshot(snap): string`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "72d1bacb5e09b123": {
+      "translation": "मानव-पठनीय प्रारूपण के लिए एक-लाइन फ़ंक्शन।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "65bcbb03ca457c98": {
+      "translation": "स्थिति जानने के लिए",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "ed61daad33c2e2b6": {
+      "translation": "`governor.dispose(): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "7a925b914a1d6a22": {
+      "translation": "TTL रीपर को बंद करें। सिस्टम बंद होने पर इसे कॉल करें।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "0aca93bfa813a76c": {
+      "translation": "अनुकूलन",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "02abe023f8860900": {
+      "translation": "ट्री-शेकेबल रैपर - केवल वही आयात करें जिसका आप उपयोग करते हैं। इसमें कोई रनटाइम निर्भरता नहीं है।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "a7910bc66008f5b9": {
+      "translation": "अनुकूलक",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "d18c6691e0afbcac": {
+      "translation": "आयात करें",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "769df1c7fb08b79e": {
+      "translation": "स्वचालित रिपोर्टिंग",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "a6f6b2d3b00b064b": {
+      "translation": "--------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "e894b099a8e2f957": {
+      "translation": "**fetch**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "22fd3c8ec5572f4e": {
+      "translation": "परिणाम (HTTP स्थिति से) + विलंबता",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "93f19a924ca93fb4": {
+      "translation": "परिणाम + विलंबता + टोकन उपयोग",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "bdf0a73657eb6a39": {
+      "translation": "परिणाम + विलंबता + कस्टम भार",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "665d441f24149cc2": {
+      "translation": "परिणाम ( `res.statusCode` से) + विलंबता",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "df9de08b0b1eb5e8": {
+      "translation": "परिणाम + विलंबता",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "5b2a4c87ff04107c": {
+      "translation": "सभी एडेप्टर अनुमति मिलने पर `{ ok: true, result, latencyMs }` और अस्वीकार होने पर `{ ok: false, decision }` लौटाते हैं।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "e728587d06201b1a": {
+      "translation": "फ़ेच",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "bcd2a63e2478a5a1": {
+      "translation": "OpenAI-संगत",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "f6b6b944df76d9d3": {
+      "translation": "टूल कॉल",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "c8c8c23599ba1dfc": {
+      "translation": "एक्सप्रेस",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "23af1d142bdb3e16": {
+      "translation": "अनुकूलित ट्यूनिंग के साथ एक पूर्ण, चलने योग्य सर्वर के लिए [`examples/express-adaptive/`](examples/express-adaptive/) देखें।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "45a6b3874643356c": {
+      "translation": "होनो",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "8442d5981b128feb": {
+      "translation": "दस्तावेज़",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "fc547e3694d376ce": {
+      "translation": "दस्तावेज़",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "e42c27d120cbbe55": {
+      "translation": "इसमें क्या शामिल है",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "3b88b43261c1c270": {
+      "translation": "----------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "84f67ef2b867b90c": {
+      "translation": "---------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "4dd30d2f78867726": {
+      "translation": "परिदृश्य-आधारित कॉन्फ़िगरेशन गाइड, निर्णय वृक्ष, नॉब संदर्भ",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "26f352871cb2a95b": {
+      "translation": "सामान्य समस्याएं: हमेशा अस्वीकृत, रुकावट, अनुकूली दोलन",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "03ee9353b110c754": {
+      "translation": "रिलीज़ प्रक्रिया और आर्टिफैक्ट विवरण",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "65ee8c4eb6718806": {
+      "translation": "एसेट नीति और इतिहास पुनर्लेखन लॉग",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "a9c51f8186294be7": {
+      "translation": "ट्यूनिंग त्वरित संदर्भ",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "4f27ab36f9345292": {
+      "translation": "आप यह देखते हैं",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "0bc6efaad10fb42f": {
+      "translation": "इसे समायोजित करें",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "e5a0c4d598ffb9c1": {
+      "translation": "`maxInFlight` बढ़ाएं या कॉल अवधि कम करें",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "1d630a363b660810": {
+      "translation": "`requestsPerMinute` / `tokensPerMinute` बढ़ाएं",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "bbeb4e9257d982fe": {
+      "translation": "`reason: \"policy\"` (निष्पक्षता)",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "2625a601062dee8f": {
+      "translation": "`softCapRatio` कम करें या `maxInFlight` बढ़ाएं",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "3104aed041316937": {
+      "translation": "उच्च `retryAfterMs`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "632480ce52bb858f": {
+      "translation": "`leaseTtlMs` को कम करें ताकि समाप्त हो चुके लीज़ तेजी से समाप्त हो जाएं",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "cb0cb8adac807603": {
+      "translation": "पृष्ठभूमि कार्य बाधित",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "c93d8dfdc75a02fa": {
+      "translation": "`maxInFlight` बढ़ाएं या `interactiveReserve` कम करें",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "17f05beaec3de87e": {
+      "translation": "इंटरैक्टिव विलंबता अधिक",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "66d1888fbf372db7": {
+      "translation": "`interactiveReserve` बढ़ाएं",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "911630b76c91761c": {
+      "translation": "अनुकूलन बहुत तेजी से घटता है",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "380c03e9de099820": {
+      "translation": "`alpha` कम करें या `targetDenyRate` बढ़ाएं",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "36528e566f518f1a": {
+      "translation": "अधिक विस्तृत मार्गदर्शन के लिए, [ट्यूनिंग चीटशीट](docs/tuning-cheatsheet.md) देखें।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "4e0096dd30194001": {
+      "translation": "उदाहरण",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "43492e23ef09cd92": {
+      "translation": "चलने योग्य डेमो के लिए [`examples/`](examples/) देखें:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "f8d150a9315990f0": {
+      "translation": "- **[express-adaptive/](examples/express-adaptive/)** — अनुकूलित ट्यूनिंग + लोड जनरेटर के साथ पूर्ण एक्सप्रेस सर्वर\n- **[node-basic.ts](examples/node-basic.ts)** — स्नैपशॉट प्रिंटिंग के साथ बर्स्ट सिमुलेशन\n- **[express-middleware.ts](examples/express-middleware.ts)** — 429 + रीट्राय-आफ्टर एंडपॉइंट\n- **[cookbook-adapters.ts](examples/cookbook-adapters.ts)** — सभी पांच एडेप्टर क्रिया में\n- **[cookbook-burst-snapshot.ts](examples/cookbook-burst-snapshot.ts)** — गवर्नर स्नैपशॉट के साथ बर्स्ट लोड\n- **[cookbook-interactive-reserve.ts](examples/cookbook-interactive-reserve.ts)** — इंटरैक्टिव बनाम पृष्ठभूमि प्राथमिकता\n- **[cookbook-express-429.ts](examples/cookbook-express-429.ts)** — 429 बनाम क्यू रीट्राय पैटर्न",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "90ec8b3fca52def6": {
+      "translation": "स्थिरता",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "1ffb23097f138eb0": {
+      "translation": "ThrottleAI [सिमेंटिक वर्जनिंग](https://semver.org/) का पालन करता है। सार्वजनिक एपीआई — `throttleai` और `throttleai/adapters/*` से निर्यात किए गए सभी — v1.0.0 से **स्थिर** है। ब्रेकिंग बदलावों के लिए एक प्रमुख संस्करण में वृद्धि की आवश्यकता होती है।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "9a64d64c6afecbcb": {
+      "translation": "सार्वजनिक और आंतरिक के बीच के अंतर के बारे में विवरण के लिए, [एपीआई स्थिरता](docs/api-stability.md) देखें। सुरक्षा रिपोर्टिंग के लिए, [SECURITY.md](.github/SECURITY.md) देखें।",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "cfbc372f8058f151": {
+      "translation": "लाइसेंस",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "8a691ee81405175f": {
+      "translation": "MIT",
+      "model": "translategemma:12b",
+      "timestamp": 1772019740010
+    },
+    "a49b864e19992b8a": {
+      "translation": "**ThrottleAI è un sistema di controllo per la gestione della concorrenza, dei limiti di velocità e delle risorse, con adattatori per fetch, OpenAI, strumenti, Express e Hono.**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "d672947926cf66bf": {
+      "translation": "Guida rapida (60 secondi)",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "a5a5ee69bddaa09b": {
+      "translation": "Questo è tutto. Il sistema di controllo applica la concorrenza, i limiti di velocità e l'equità. Le licenze scadono automaticamente se si dimentica di rilasciarle.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "4c0c64056baf3061": {
+      "translation": "Perché",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "0bd4f383fdece62b": {
+      "translation": "Le applicazioni di intelligenza artificiale raggiungono i limiti di velocità, superano i budget e causano picchi di traffico. ThrottleAI si posiziona tra il codice e la chiamata al modello, applicando:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "b2315e7adf90546a": {
+      "translation": "- **Concorrenza** — limita il numero di chiamate simultanee con slot ponderati e una riserva interattiva.\n- **Velocità** — richieste/minuto e token/minuto con finestre scorrevoli.\n- **Equità** — nessun utente monopolizza le risorse.\n- **Licenze** — acquisire prima, rilasciare dopo, scadono automaticamente in caso di timeout.\n- **Monitoraggio** — `snapshot()`, `onEvent` e `formatEvent()` per il debug.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "11996591bac13cf5": {
+      "translation": "Nessuna dipendenza. Node.js 18+. Ottimizzato per l'eliminazione del codice inutilizzato.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "db353ccc9891b9a8": {
+      "translation": "Scegli il tuo limitatore",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "c636f62637b6fd41": {
+      "translation": "Limitatore",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "29247ea564662125": {
+      "translation": "Cosa limita",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "9efc329236764a33": {
+      "translation": "Quando utilizzarlo",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "859008cc19c8d7e4": {
+      "translation": "---------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "5acc6809afb159f0": {
+      "translation": "-------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "748b21f72be3fef9": {
+      "translation": "Chiamate simultanee in corso",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "bd917de859393522": {
+      "translation": "Sempre — questa è l'impostazione più importante.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "0155037278bf3652": {
+      "translation": "Richieste al minuto",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "2afb684cc3359673": {
+      "translation": "Quando l'API esterna ha un limite di velocità documentato.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "5dd6f9d1401f5511": {
+      "translation": "Token al minuto",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "30b277e1fe0620b8": {
+      "translation": "Quando si dispone di un budget di token al minuto.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "1f5880c28aaaa9e9": {
+      "translation": "Quota di risorse per utente",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "5f08d646b883484a": {
+      "translation": "Applicazioni multi-tenant in cui un singolo utente non dovrebbe monopolizzare le risorse.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "aed951be46f39fc1": {
+      "translation": "Limite di concorrenza ottimizzato automaticamente",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "c171a4125a4125c5": {
+      "translation": "Quando la latenza dell'API esterna è imprevedibile.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "1e1fd36e770930f8": {
+      "translation": "Inizia con la concorrenza. Aggiungi il limite di velocità solo se necessario. Consulta la [guida alla configurazione](docs/tuning-cheatsheet.md) per indicazioni specifiche per diversi scenari.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "6ecb0a2c86c7dd27": {
+      "translation": "Impostazioni predefinite",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "e9e6d72dd9270a11": {
+      "translation": "Modelli comuni",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "28e612fe4ba48af3": {
+      "translation": "Endpoint del server: 429 vs coda",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "6c5539ea70ae4811": {
+      "translation": "Interfaccia utente interattiva vs attività in background",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "af39296722c1a9a5": {
+      "translation": "Con `interactiveReserve: 2`, le attività in background vengono bloccate quando rimangono solo 2 slot, riservandoli per le richieste interattive.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "ebd2f3c77ec4aa29": {
+      "translation": "Chiamate in streaming",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "714dcf08944965f6": {
+      "translation": "Acquisire una volta, rilasciare una volta: la licenza è valida per l'intera durata dello stream.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "dc6ef3d3bd1acb34": {
+      "translation": "Monitoraggio: scopri perché viene applicato il limite.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "e63ed43ff97b4dc9": {
+      "translation": "Configurazione",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "56b675b49505db3b": {
+      "translation": "API",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "4c1a3098172d4cac": {
+      "translation": "`createGovernor(config): Governor`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "176fe4cca19d5453": {
+      "translation": "Funzione di fabbrica. Restituisce un'istanza di `Governor`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "ea8e563d06bafa12": {
+      "translation": "`governor.acquire(request): AcquireDecision`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "994ffe3271e94150": {
+      "translation": "Richiedi una licenza. Restituisce:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "21487a135cc5c6c5": {
+      "translation": "Motivi di rifiuto: `\"concorrenza\"`, `\"velocità\"`, `\"budget\"`, `\"policy\"`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "b7e03be9bef18728": {
+      "translation": "`governor.release(leaseId, report?): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "17ea523991252a03": {
+      "translation": "Rilascia una licenza. Chiama sempre questa funzione, anche in caso di errori.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "30d67e73d19e253e": {
+      "translation": "`withLease(governor, request, fn, options?)`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "f80f7099adb69dd1": {
+      "translation": "Esegui `fn` sotto una licenza con rilascio automatico.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "31bbce55cc0bb980": {
+      "translation": "`governor.snapshot(): GovernorSnapshot`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "e422f49e1b0a57b7": {
+      "translation": "Stato in un determinato momento: concorrenza, velocità, token, ultimo rifiuto.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "49244180c2d7f1d4": {
+      "translation": "`formatEvent(event): string` / `formatSnapshot(snap): string`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "ec35cb196b3aacac": {
+      "translation": "Formattatori leggibili in una sola riga.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "dc488426bc3c7380": {
+      "translation": "Funzioni per ottenere lo stato",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "f0ebefee316d0117": {
+      "translation": "`governor.dispose(): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "93367ea1d44b8821": {
+      "translation": "Interrompi il meccanismo di scadenza delle licenze. Chiama durante l'arresto.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "0fc9dd8837676847": {
+      "translation": "Adattatori",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "31a48e1ea4044640": {
+      "translation": "Wrapper ottimizzati per l'eliminazione del codice inutilizzato — importa solo ciò che utilizzi. Nessuna dipendenza a runtime.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "c21ca7800a756901": {
+      "translation": "Adattatore",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "6a7c9414800d1590": {
+      "translation": "Importazione",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "8c26f461d74ae496": {
+      "translation": "Report automatici",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "52634ac8aa73733d": {
+      "translation": "--------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "a3f8b8f63f97689a": {
+      "translation": "**fetch**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "a855204d31402ccc": {
+      "translation": "Esito (dallo stato HTTP) + latenza",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "92b35551ecd566bc": {
+      "translation": "Esito + latenza + utilizzo dei token",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "c85c6816116ae3d2": {
+      "translation": "Esito + latenza + peso personalizzato",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "25b0334804985a9e": {
+      "translation": "Esito (dallo `res.statusCode`) + latenza",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "2751ba0be3aea768": {
+      "translation": "Esito + latenza",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "fe48bf4436b498fe": {
+      "translation": "Tutti gli adattatori restituiscono `{ ok: true, result, latencyMs }` in caso di concessione, e `{ ok: false, decision }` in caso di rifiuto.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "6d3b8fa5ec051f92": {
+      "translation": "fetch",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "bb6fb5eba69d739d": {
+      "translation": "Compatibile con OpenAI",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "79b53d7c475b30cb": {
+      "translation": "Chiamata a uno strumento",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "3d66efb1b58c2912": {
+      "translation": "Express",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "3c13c1f6c8754b42": {
+      "translation": "Consultare [`examples/express-adaptive/`](examples/express-adaptive/) per un server completo e funzionante con ottimizzazione adattiva.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "36bee1a26689d592": {
+      "translation": "Hono",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "82921b0e93040837": {
+      "translation": "Documentazione",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "ad2f9dd03bf3716c": {
+      "translation": "Documento",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "efcbc8d17e0ac325": {
+      "translation": "Cosa è incluso",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "db5b48a0e074d983": {
+      "translation": "----------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "cfe608a8e51ce75a": {
+      "translation": "---------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "c1b444ef7b79cdab": {
+      "translation": "Guida alla configurazione basata su scenari, albero decisionale, riferimento ai parametri.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "ede1aec2a8abcc37": {
+      "translation": "Problemi comuni: sempre rifiutato, rallentamenti, oscillazione adattiva.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "a9fa7e7fd7abbb2c": {
+      "translation": "Processo di rilascio e dettagli sugli artefatti.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "76e6243ee5bab063": {
+      "translation": "Politica delle risorse e log di riscrittura della cronologia.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "d58628677184c0b0": {
+      "translation": "Riferimento rapido per l'ottimizzazione.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "f472fa733872a5df": {
+      "translation": "Vedete questo",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "d24edb03ca3dac11": {
+      "translation": "Modificate questo",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "6fa86d244549c46d": {
+      "translation": "Aumentate `maxInFlight` o diminuite la durata della chiamata.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "edf0700ecb67b83b": {
+      "translation": "Aumentate `requestsPerMinute` / `tokensPerMinute`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "58675bff205c7477": {
+      "translation": "`reason: \"policy\"` (equità)",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "85f3960edfd94a71": {
+      "translation": "Diminuate `softCapRatio` o aumentate `maxInFlight`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "4d2e14c65d5338ce": {
+      "translation": "Valore elevato di `retryAfterMs`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "b90fb9feda473d45": {
+      "translation": "Riducete `leaseTtlMs` in modo che le licenze scadute vengano liberate più rapidamente.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "4f5438be67d8ca8c": {
+      "translation": "Processi in background \"affamati\" (privati di risorse).",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "7c5eddbb6a57dba9": {
+      "translation": "Aumentate `maxInFlight` o riducete `interactiveReserve`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "eb564ffd1f8bb0ee": {
+      "translation": "Latenza elevata per le operazioni interattive.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "0d7866654d3d6e20": {
+      "translation": "Aumentate `interactiveReserve`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "508d01962c2647c9": {
+      "translation": "L'ottimizzazione adattiva si riduce troppo rapidamente.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "359e4fa0807ba22a": {
+      "translation": "Diminuate `alpha` o aumentate `targetDenyRate`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "fe16f5e3ee188c4c": {
+      "translation": "Per una guida più dettagliata, consultare la [guida rapida per l'ottimizzazione](docs/tuning-cheatsheet.md).",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "14372923a85163e9": {
+      "translation": "Esempi",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "cdbd1cbf9c8632be": {
+      "translation": "Consultare [`examples/`](examples/) per demo funzionanti:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "2093f99082554425": {
+      "translation": "- **[express-adaptive/](examples/express-adaptive/)** — server Express completo con ottimizzazione adattiva + generatore di carico\n- **[node-basic.ts](examples/node-basic.ts)** — simulazione di burst con stampa di snapshot\n- **[express-middleware.ts](examples/express-middleware.ts)** — endpoint 429 + retry-after\n- **[cookbook-adapters.ts](examples/cookbook-adapters.ts)** — tutti e cinque gli adattatori in azione\n- **[cookbook-burst-snapshot.ts](examples/cookbook-burst-snapshot.ts)** — carico di burst con snapshot del governor\n- **[cookbook-interactive-reserve.ts](examples/cookbook-interactive-reserve.ts)** — priorità tra operazioni interattive e in background\n- **[cookbook-express-429.ts](examples/cookbook-express-429.ts)** — 429 vs schema di retry della coda",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "4fbc21877fc9d780": {
+      "translation": "Stabilità",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "99babcd195cc2155": {
+      "translation": "ThrottleAI segue [Semantic Versioning](https://semver.org/). L'API pubblica — tutto ciò che viene esportato da `throttleai` e `throttleai/adapters/*` — è **stabile** a partire dalla versione 1.0.0. Le modifiche che causano interruzioni richiedono un aumento della versione principale.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "92a31ab60ec036af": {
+      "translation": "Per i dettagli su cosa è considerato pubblico rispetto a cosa è interno, consultare [stabilità dell'API](docs/api-stability.md). Per la segnalazione di problemi di sicurezza, consultare [SECURITY.md](.github/SECURITY.md).",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "0870aa1dcfea97cc": {
+      "translation": "Licenza",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "cf7d056fb6111803": {
+      "translation": "MIT",
+      "model": "translategemma:12b",
+      "timestamp": 1772019818258
+    },
+    "7819ce98410b0047": {
+      "translation": "**ThrottleAI é um controlador sem dependências para gerenciamento de concorrência, limites de taxa e orçamentos de tokens, com adaptadores para fetch / OpenAI / ferramentas / Express / Hono.**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "95debd91984dc555": {
+      "translation": "Início rápido em 60 segundos",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "57e43795bc906cb9": {
+      "translation": "Isso é tudo. O controlador impõe a concorrência, os limites de taxa e a justiça. As licenças expiram automaticamente se você esquecer de liberá-las.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "739de2da43412225": {
+      "translation": "Por que usar?",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "be05ee92ab4d978c": {
+      "translation": "As aplicações de IA atingem limites de taxa, excedem orçamentos e causam sobrecarga. O ThrottleAI fica entre seu código e a chamada do modelo, aplicando:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "4c0c7d85a8a2e8ba": {
+      "translation": "- **Concorrência** — limita o número de chamadas simultâneas com slots ponderados e reserva interativa.\n- **Taxa** — solicitações/minuto e tokens/minuto com janelas deslizantes.\n- **Justiça** — nenhum ator monopoliza a capacidade.\n- **Licenças** — adquirir antes, liberar depois, expiração automática em caso de timeout.\n- **Observabilidade** — `snapshot()`, `onEvent` e `formatEvent()` para depuração.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "2f9adf472c06a3e9": {
+      "translation": "Sem dependências. Node.js 18+. Pode ser usado em árvores de dependência.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "e3944303b103711a": {
+      "translation": "Escolha seu limitador",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "a7b1e4a64198b8a8": {
+      "translation": "Limitador",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "9cd93c23d8de3b65": {
+      "translation": "O que ele limita",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "40a1668056e051e0": {
+      "translation": "Quando usar",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "eeb243aa53a24f8e": {
+      "translation": "---------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "7561209f94247c19": {
+      "translation": "-------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "53ac6169272c6214": {
+      "translation": "Chamadas simultâneas em andamento",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "8620628b6c26456f": {
+      "translation": "Sempre — este é o parâmetro mais importante.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "d42782052df1eb66": {
+      "translation": "Solicitações por minuto",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "37155052e5d2232f": {
+      "translation": "Quando a API de destino tem um limite de taxa documentado.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "8cfcce2ae5b76e73": {
+      "translation": "Tokens por minuto",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "29abebcceda99e7a": {
+      "translation": "Quando você tem um orçamento de tokens por minuto.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "54155d0e300d83b6": {
+      "translation": "Participação de cada ator na capacidade total.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "f198c5b519bcbb74": {
+      "translation": "Aplicações multi-tenant onde um único usuário não deve consumir todos os recursos.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "53ad381d439007f4": {
+      "translation": "Limite de concorrência ajustado automaticamente.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "5ae31464138a9e76": {
+      "translation": "Quando a latência da API de destino é imprevisível.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "4461897cf14b9fd5": {
+      "translation": "Comece com a concorrência. Adicione o limite de taxa apenas se necessário. Consulte a [guia de ajuste](docs/tuning-cheatsheet.md) para obter orientações baseadas em cenários.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "fde784955f9c9cda": {
+      "translation": "Configurações predefinidas",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "16816125192864d9": {
+      "translation": "Padrões comuns",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "73703c131e69f2a7": {
+      "translation": "Ponto final do servidor: 429 vs fila",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "cddc589b8a5118d6": {
+      "translation": "Interface do usuário interativa vs tarefas em segundo plano",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "d730c4a5372f56a0": {
+      "translation": "Com `interactiveReserve: 2`, as tarefas em segundo plano são bloqueadas quando restam apenas 2 slots, reservando-os para solicitações interativas.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "2b97a983aff78210": {
+      "translation": "Chamadas de streaming",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "2e66b5ac036f177e": {
+      "translation": "Adquira uma vez, libere uma vez — a licença é válida durante toda a duração do stream.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "f0ced35ea8705177": {
+      "translation": "Observabilidade: veja por que ele está limitando.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "a0b286f09c8f5b2f": {
+      "translation": "Configuração",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "7fc74cf383b5a81d": {
+      "translation": "API",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "0d1406a71efcae75": {
+      "translation": "`createGovernor(config): Governor`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "240d748cd54b1637": {
+      "translation": "Função de fábrica. Retorna uma instância de `Governor`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "fa3f7d8fc379e689": {
+      "translation": "`governor.acquire(request): AcquireDecision`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "42bc824210a11626": {
+      "translation": "Solicita uma licença. Retorna:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "6a31bd48fb6c454f": {
+      "translation": "Motivos para negação: `\"concorrência\"`, `\"taxa\"`, `\"orçamento\"`, `\"política\"`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "195d36fc8bac448a": {
+      "translation": "`governor.release(leaseId, report?): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "f7ccbf844edddaf1": {
+      "translation": "Libera uma licença. Sempre chame isso — mesmo em caso de erro.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "2c034ad8fd862e4b": {
+      "translation": "`withLease(governor, request, fn, options?)`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "6b156ea99a12e5a1": {
+      "translation": "Executa `fn` sob uma licença com liberação automática.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "4eecac093ce0ca10": {
+      "translation": "`governor.snapshot(): GovernorSnapshot`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "3214885eff1533a0": {
+      "translation": "Estado em um determinado momento: concorrência, taxa, tokens, última negação.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "7032c64ba812d592": {
+      "translation": "`formatEvent(event): string` / `formatSnapshot(snap): string`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "9a9250da9a8fa344": {
+      "translation": "Formatadores de linha única e legíveis.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "3eeec99cb51f94d4": {
+      "translation": "Funções para obter o status",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "021ea64812ac9f31": {
+      "translation": "`governor.dispose(): void`",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "d7177a1f8c254d56": {
+      "translation": "Interrompe o processo de expiração automática das licenças. Chame ao desligar.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "c2e2a253f5154242": {
+      "translation": "Adaptadores",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "6784cc45f14b0567": {
+      "translation": "Wrappers que podem ser usados em árvores de dependência — importe apenas o que você usa. Sem dependências em tempo de execução.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "59ad3e4ecc12ca20": {
+      "translation": "Adaptador",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "6d93b1df5cb64202": {
+      "translation": "Importação",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "83d5dd4110170585": {
+      "translation": "Relatórios automáticos",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "da4f8834bba48670": {
+      "translation": "--------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "cff417a236e1b6d5": {
+      "translation": "**fetch**",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "f0d83a2d9ee69fca": {
+      "translation": "Resultado (do status HTTP) + latência",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "b6a3db2fe052b48f": {
+      "translation": "Resultado + latência + uso de tokens",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "2b4424e09d607980": {
+      "translation": "Resultado + latência + peso personalizado",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "804f21ed1768320c": {
+      "translation": "Resultado (do `res.statusCode`) + latência",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "5975f962d4d60cbe": {
+      "translation": "Resultado + latência",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "788bf233863bb70c": {
+      "translation": "Todos os adaptadores retornam `{ ok: true, result, latencyMs }` quando a solicitação é permitida, e `{ ok: false, decision }` quando é negada.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "871384625df70433": {
+      "translation": "Buscar",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "cdeff59da54cbf72": {
+      "translation": "Compatível com OpenAI",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "473240675990985d": {
+      "translation": "Chamada de ferramenta",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "73d03dade6e4f725": {
+      "translation": "Express",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "c8503d06b4663c6d": {
+      "translation": "Consulte [`examples/express-adaptive/`](examples/express-adaptive/) para um servidor completo e funcional com ajuste adaptativo.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "0c6f55d1221c09ce": {
+      "translation": "Hono",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "c0c85db26591398a": {
+      "translation": "Documentação",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "9c0e0444f517fb53": {
+      "translation": "Documento",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "44c4063312d5a246": {
+      "translation": "O que este documento cobre",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "f5f497abcadce090": {
+      "translation": "----------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "3d471ea1711e97c0": {
+      "translation": "---------------",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "b62280a6aeb12cc5": {
+      "translation": "Guia de configuração baseado em cenários, árvore de decisão, referência de parâmetros.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "393647ef743ea187": {
+      "translation": "Problemas comuns: negação constante, lentidão, oscilação adaptativa.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "bbd1dc12a0822e0f": {
+      "translation": "Processo de lançamento e detalhes dos artefatos.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "d5442385184f7850": {
+      "translation": "Política de recursos e registro de reescrita de histórico.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "9f4a7f65ed67e0b4": {
+      "translation": "Referência rápida de ajuste.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "fbc0a78cdea86e65": {
+      "translation": "Você vê isso",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "3635669e6b4be324": {
+      "translation": "Ajuste isso",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "96c64a8a595eae1c": {
+      "translation": "Aumente `maxInFlight` ou diminua a duração da chamada.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "2243238a2e5e64f2": {
+      "translation": "Aumente `requestsPerMinute` / `tokensPerMinute`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "424480696747f56b": {
+      "translation": "`reason: \"policy\"` (equidade)",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "6832ff5a2026504c": {
+      "translation": "Diminua `softCapRatio` ou aumente `maxInFlight`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "712ef88f6b6c19ed": {
+      "translation": "`retryAfterMs` alto.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "ba18c6c3f8bad684": {
+      "translation": "Diminua `leaseTtlMs` para que os leases expirados sejam liberados mais rapidamente.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "2ba4e30930cb99c0": {
+      "translation": "Tarefas em segundo plano ficam sem recursos.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "80bcb5d22a680da1": {
+      "translation": "Aumente `maxInFlight` ou diminua `interactiveReserve`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "641598a64ea2be5e": {
+      "translation": "Latência interativa alta.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "2b4dd52c4ac01cae": {
+      "translation": "Aumente `interactiveReserve`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "88b7244099994840": {
+      "translation": "Ajuste adaptativo diminui muito rapidamente.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "924fd86186ef9a3a": {
+      "translation": "Diminua `alpha` ou aumente `targetDenyRate`.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "82e2e358bdb6f1c2": {
+      "translation": "Para obter orientações mais detalhadas, consulte a [referência rápida de ajuste](docs/tuning-cheatsheet.md).",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "740b078a0e93d40a": {
+      "translation": "Exemplos",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "34ecd2bb4eccbe0f": {
+      "translation": "Consulte [`examples/`](examples/) para demonstrações funcionais:",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "eae6b01f65d5f1e9": {
+      "translation": "- **[express-adaptive/](examples/express-adaptive/)** — servidor Express completo com ajuste adaptativo + gerador de carga.\n- **[node-basic.ts](examples/node-basic.ts)** — simulação de picos com impressão de snapshots.\n- **[express-middleware.ts](examples/express-middleware.ts)** — endpoint 429 + retry-after.\n- **[cookbook-adapters.ts](examples/cookbook-adapters.ts)** — todos os cinco adaptadores em ação.\n- **[cookbook-burst-snapshot.ts](examples/cookbook-burst-snapshot.ts)** — carga de pico com snapshots do governador.\n- **[cookbook-interactive-reserve.ts](examples/cookbook-interactive-reserve.ts)** — prioridade entre tarefas interativas e em segundo plano.\n- **[cookbook-express-429.ts](examples/cookbook-express-429.ts)** — 429 vs padrão de repetição em fila.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "d82196a1092ebd7c": {
+      "translation": "Estabilidade",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "f7f56886a06fb213": {
+      "translation": "ThrottleAI segue o [Semantic Versioning](https://semver.org/). A API pública — tudo o que é exportado de `throttleai` e `throttleai/adapters/*` — é **estável** a partir da versão 1.0.0. Alterações que quebram a compatibilidade exigem um aumento na versão principal.",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "c488c7d65d813510": {
+      "translation": "Para obter detalhes sobre o que é considerado público versus interno, consulte [estabilidade da API](docs/api-stability.md). Para relatórios de segurança, consulte [SECURITY.md](.github/SECURITY.md).",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "2aca9b0e72841008": {
+      "translation": "Licença",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    },
+    "673d526b33ab644f": {
+      "translation": "MIT",
+      "model": "translategemma:12b",
+      "timestamp": 1772019889645
+    }
+  }
+}
